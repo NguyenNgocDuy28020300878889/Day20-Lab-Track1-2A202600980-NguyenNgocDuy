@@ -18,14 +18,37 @@
 
 ## [cite_start]Giai đoạn 1: Nối vòng đời trải nghiệm - Flow Map (10 Phút) 
 [cite_start]*Thao tác trên công cụ:* Dùng công cụ vẽ Flowchart vẽ các khối (Node) nối tiếp nhau đại diện cho hành trình[cite: 440].
-* `Start` -> `Onboarding Screen` -> `Nhập điểm đến/Thời gian` -> `AI Phân tích (Loading)`.
-* Từ `AI Phân tích` chia nhánh:
-    * **Nhánh 1 (Thiếu dữ kiện):** -> `AI Hỏi thêm mục đích` -> `Người dùng trả lời` -> `Kết quả Checklist`.
-    * **Nhánh 2 (Đủ dữ kiện):** -> `Kết quả Checklist` (kèm lớp Explainability).
-* Từ `Kết quả Checklist` chia nhánh khôi phục:
-    * **Nhánh Lỗi 1:** -> `Người dùng xóa đồ sai` -> `Hệ thống xác nhận đã hiểu & Xóa`.
-    * **Nhánh Mua sắm:** -> `AI gợi ý mua đồ` -> `Người dùng từ chối (chọn "Đã có")` -> `Hệ thống cập nhật trạng thái`.
-* Hội tụ lại -> `Lưu hành trang (Hoàn thành)`.
+
+```mermaid
+graph TD
+    classDef happy fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px;
+    classDef ask fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
+    classDef recovery fill:#ffebee,stroke:#ef5350,stroke-width:2px;
+    classDef system fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px;
+
+    Start([Bắt đầu]) :::happy --> Onboarding[Màn hình Onboarding<br/>Thiết lập kỳ vọng & Xin quyền] :::happy
+    Onboarding --> Input[Nhập Điểm đến & Ngày đi] :::happy
+    Input --> Analysis[AI Phân tích & Đọc lịch trình] :::system
+    
+    Analysis -->|Thiếu dữ kiện| AskMissing[AI hỏi thêm mục đích chuyến đi<br/><i>Mức độ: Ask</i>] :::ask
+    AskMissing --> UserAnswer[Người dùng trả lời<br/>Trekking hoặc Nghỉ dưỡng] :::ask
+    UserAnswer --> ChecklistResult
+    
+    Analysis -->|Đủ dữ kiện| ChecklistResult[Kết quả Checklist<br/><i>Mức độ: Act & Explainability</i>] :::happy
+    
+    ChecklistResult -->|Nhánh Lỗi: Xóa đồ bơi| DeleteItem[Người dùng xóa đồ bơi] :::recovery
+    DeleteItem --> AskReason[AI hỏi lý do xóa] :::recovery
+    AskReason --> AnswerReason[Chọn: Đi công tác] :::recovery
+    AnswerReason --> ConfirmDelete[Toast: Đã ghi nhớ bối cảnh<br/><i>System Explicit Feedback</i>] :::recovery
+    ConfirmDelete --> SaveChecklist
+    
+    ChecklistResult -->|Nhánh Thiếu: Sạc dự phòng| SuggestBuy[Gợi ý mua sạc dự phòng<br/><i>Mức độ: Don't Act tự mua / Ask</i>] :::ask
+    SuggestBuy -->|Chọn: Tôi đã có| DismissSuggest[Thẻ biến mất & Tick xanh] :::recovery
+    DismissSuggest --> SaveChecklist
+    
+    ChecklistResult -->|Dùng mặc định| SaveChecklist[Lưu hành trang & Hoàn thành] :::happy
+    SaveChecklist --> End([Kết thúc]) :::happy
+```
 
 ---
 
