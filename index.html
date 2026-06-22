@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Packing - Presentation Hub</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #09090e 0%, #11111a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --primary: #00e5ff;
+            --primary-glow: rgba(0, 229, 255, 0.2);
+            --text-main: #f5f5f7;
+            --text-muted: #8e8e93;
+            --card-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+            --secondary: #d500f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 1000px;
+            background: rgba(18, 18, 30, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 25px;
+        }
+
+        .badge-track {
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 14px;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Prototypes Panel */
+        .section-box {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .proto-link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .proto-link-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 229, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .proto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .proto-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .proto-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .arrow-icon {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        /* Demo Path Panel */
+        .demo-step {
+            position: relative;
+            padding-left: 24px;
+            border-left: 2px solid var(--glass-border);
+            margin-bottom: 16px;
+        }
+
+        .demo-step::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .demo-time {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .demo-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            margin: 2px 0 4px 0;
+        }
+
+        .demo-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Rationale Cards */
+        .rationale-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .rationale-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .rationale-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .rat-q {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .rat-a {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Presentation Header -->
+        <header>
+            <div class="badge-track">Track: AI Travel Planner</div>
+            <h1>Smart Packing & Prep Presentation Hub</h1>
+            <p>Trang chủ tổng hợp bài thực hành Ngày 18 — Human-Centered AI Design</p>
+        </header>
+
+        <div class="grid-layout">
+            <!-- LEFT: Prototyping Link Hub -->
+            <div class="section-box">
+                <h2>🔗 Link Tương Tác Prototype</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">
+                    Mở các tệp prototype tương tác HTML dưới đây để demo chạy thử các kịch bản của AI:
+                </p>
+
+                <!-- Onboarding -->
+                <a href="onboarding.html" target="_blank" class="proto-link-card">
+                    <div class="proto-info">
+                        <span class="proto-title">Giai đoạn 2: Luồng Onboarding</span>
+                        <span class="proto-desc">Thiết lập kỳ vọng & Xin quyền thời tiết, lịch trình.</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+
+                <!-- Main Flow -->
+                <a href="mainpath.html" target="_blank" class="proto-link-card">
+                    <div class="proto-info">
+                        <span class="proto-title">Giai đoạn 3: Luồng Chính & Tự Chủ</span>
+                        <span class="proto-desc">Hỏi bối cảnh Langbiang (Ask), tự sinh checklist (Act), giải trình (Explainability).</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+
+                <!-- Recovery -->
+                <a href="recovery.html" target="_blank" class="proto-link-card">
+                    <div class="proto-info">
+                        <span class="proto-title">Giai đoạn 4: Sai sót & Khôi phục</span>
+                        <span class="proto-desc">Fansipan đổi thời tiết đột ngột & Tối ưu hóa cân nặng bay Vietjet.</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+
+                <!-- Feedback -->
+                <a href="feedback.html" target="_blank" class="proto-link-card">
+                    <div class="proto-info">
+                        <span class="proto-title">Giai đoạn 5: Vòng Phản hồi 2x2</span>
+                        <span class="proto-desc">Chi tiết tương tác Explicit & Implicit Feedback giữa User và System.</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </div>
+
+            <!-- RIGHT: Presentation Demo Path -->
+            <div class="section-box">
+                <h2>⏱️ Kịch Bản Thuyết Trình 5 Phút</h2>
+                
+                <!-- Step 1 -->
+                <div class="demo-step">
+                    <div class="demo-time">0:00 - 1:00 (1 Phút)</div>
+                    <div class="demo-title">Giới thiệu Lát cắt Tính năng</div>
+                    <div class="demo-desc">
+                        Giới thiệu tính năng gợi ý hành trang theo hoạt động/thời tiết. Nêu rõ mục tiêu giúp tối ưu hành lý và giảm thiểu rủi ro chuẩn bị thiếu đồ.
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="demo-step">
+                    <div class="demo-time">1:00 - 2:00 (1 Phút)</div>
+                    <div class="demo-title">Trình bày Onboarding & Kỳ vọng</div>
+                    <div class="demo-desc">
+                        Click mở <strong>onboarding.html</strong>. Trình diễn cách thiết lập kỳ vọng đúng đắn (AI có thể làm gì/không thể làm gì) và cơ chế toggle xin quyền minh bạch.
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="demo-step">
+                    <div class="demo-time">2:00 - 3:30 (1.5 Phút)</div>
+                    <div class="demo-title">Demo Luồng chính & Mức tự chủ AI</div>
+                    <div class="demo-desc">
+                        Click mở <strong>mainpath.html</strong>. Trình diễn AI hỏi thêm về bối cảnh (Ask), tự điền đồ (Act) và bấm icon ⓘ để xem lớp thông tin giải thích (Explainability).
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="demo-step">
+                    <div class="demo-time">3:30 - 5:00 (1.5 Phút)</div>
+                    <div class="demo-title">Khôi phục lỗi & Tổng kết Rationale</div>
+                    <div class="demo-desc">
+                        Mở <strong>recovery.html</strong> để demo khôi phục do thời tiết đổi hoặc quá tải cân nặng xách tay. Kết luận về ma trận feedback 2x2 để hoàn thiện bài thuyết trình.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM: Design Rationale Cards -->
+        <div style="margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 25px;">
+            <h2>💡 Design Rationale (Giải trình cốt lõi)</h2>
+            <div class="rationale-grid">
+                <div class="rationale-card">
+                    <div class="rat-q">AI Đang Giả Định Điều Gì?</div>
+                    <div class="rat-a">Giả định người dùng cần chuẩn bị đầy đủ đồ dùng theo thời tiết thực tế và hoạt động đã khai báo mà không nhớ hết các vật dụng chuyên dụng.</div>
+                </div>
+                <div class="rationale-card">
+                    <div class="rat-q">Rủi Ro Lớn Nhất & Cách Khôi Phục?</div>
+                    <div class="rat-a">Thời tiết đột ngột đổi hoặc đề xuất đồ cấm bay. Khôi phục bằng cách đưa cảnh báo đỏ và cung cấp nút "Tối ưu hóa" 1 chạm.</div>
+                </div>
+                <div class="rationale-card">
+                    <div class="rat-q">Khi Nào AI Được Phép "Act"?</div>
+                    <div class="rat-a">AI tự động tạo bản nháp và phân nhóm đồ (Act) vì rủi ro thấp, người dùng cực kỳ dễ dàng xem lại, thay đổi hoặc hoàn tác.</div>
+                </div>
+                <div class="rationale-card">
+                    <div class="rat-q">Tại Sao Đề Xuất Mua Đồ Là "Don't Act"?</div>
+                    <div class="rat-a">Giao dịch mua sắm liên quan đến tiền bạc, rủi ro sai sót rất lớn. AI tuyệt đối không tự ý thanh toán mà chỉ đưa link bên ngoài cho người dùng xác nhận.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
