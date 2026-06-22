@@ -18,64 +18,110 @@ graph TD
     classDef recovery fill:#ffebee,stroke:#ef5350,stroke-width:2px;
     classDef feedback fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px;
 
-    %% 1. Giai đoạn Onboarding
-    Start([Bắt đầu sử dụng app]) :::startEnd --> OnboardingWelcome[Welcome Screen<br/><b>Thiết lập kỳ vọng</b><br/>AI nói rõ khả năng/giới hạn] :::happyPath
-    OnboardingWelcome --> OnboardingPerms[Màn hình xin quyền<br/>Thời tiết & Lịch trình<br/><i>User Control</i>] :::happyPath
-    OnboardingPerms --> OnboardingInput[Màn hình Input<br/>Nhập điểm đến & Ngày đi] :::happyPath
+    %% Định nghĩa hình dáng các node trước
+    Start([Bắt đầu sử dụng app])
+    OnboardingWelcome[Welcome Screen<br/><b>Thiết lập kỳ vọng</b><br/>AI nói rõ khả năng/giới hạn]
+    OnboardingPerms[Màn hình xin quyền<br/>Thời tiết & Lịch trình<br/><i>User Control</i>]
+    OnboardingInput[Màn hình Input<br/>Nhập điểm đến & Ngày đi]
     
-    %% 2. Luồng chính (Happy Path - Đà Lạt)
-    OnboardingInput --> AIProcessing[AI Đang Phân tích<br/><i>System Explicit Feedback</i>] :::aiSystem
-    AIProcessing --> CheckContext{Đầy đủ dữ kiện?} :::aiSystem
+    AIProcessing[AI Đang Phân tích<br/><i>System Explicit Feedback</i>]
+    CheckContext{Đầy đủ dữ kiện?}
     
-    %% Nhánh thiếu dữ kiện (Langbiang - Đà Lạt)
-    CheckContext -->|Thiếu thông tin| AskLangbiang[Hộp thoại hỏi bối cảnh<br/>Cách đi Langbiang & Phong cách gói đồ<br/><b>[Mức độ: Ask]</b>] :::aiAsk
-    AskLangbiang --> UserSelectsLangbiang[Người dùng phản hồi nhanh<br/><i>User Explicit Feedback</i>] :::happyPath
-    UserSelectsLangbiang --> DraftChecklist
+    AskLangbiang[Hộp thoại hỏi bối cảnh<br/>Cách đi Langbiang & Phong cách gói đồ<br/><b>[Mức độ: Ask]</b>]
+    UserSelectsLangbiang[Người dùng phản hồi nhanh<br/><i>User Explicit Feedback</i>]
     
-    %% Nhánh đủ dữ kiện
-    CheckContext -->|Đủ thông tin| DraftChecklist[Hiện Checklist Đề xuất<br/>Phân nhóm & Lớp giải thích<br/><b>[Mức độ: Act]</b> + Explainability] :::happyPath
+    DraftChecklist[Hiện Checklist Đề xuất<br/>Phân nhóm & Lớp giải thích<br/><b>[Mức độ: Act]</b> + Explainability]
     
-    %% Tương tác chỉnh sửa checklist & Phản hồi
-    DraftChecklist --> UserEditChecklist[Người dùng tích chọn/bỏ đồ] :::happyPath
-    UserEditChecklist --> RemoveTrekking{Người dùng bỏ giày trekking?} :::happyPath
-    RemoveTrekking -->|Có| AskReasonRemove[AI hỏi lý do xóa<br/><i>User Explicit Feedback</i>] :::aiAsk
-    AskReasonRemove --> ChooseJeep[Chọn: Đi xe Jeep] :::happyPath
-    ChooseJeep --> AdjustTrekkingChecklist[AI tự động bỏ đồ trekking<br/>Toast xác nhận chỉ áp dụng chuyến này<br/><i>System Explicit Feedback</i>] :::aiSystem
-    AdjustTrekkingChecklist --> ConfirmMainChecklist
-    RemoveTrekking -->|Không| ConfirmMainChecklist[Xác nhận Checklist Đà Lạt] :::happyPath
+    UserEditChecklist[Người dùng tích chọn/bỏ đồ]
+    RemoveTrekking{Người dùng bỏ giày trekking?}
+    AskReasonRemove[AI hỏi lý do xóa<br/><i>User Explicit Feedback</i>]
+    ChooseJeep[Chọn: Đi xe Jeep]
+    AdjustTrekkingChecklist[AI tự động bỏ đồ trekking<br/>Toast xác nhận chỉ áp dụng chuyến này<br/><i>System Explicit Feedback</i>]
+    ConfirmMainChecklist[Xác nhận Checklist Đà Lạt]
 
-    %% 3. Luồng Thay đổi lịch trình (Nha Trang)
-    ConfirmMainChecklist --> TripActive[Chuyến đi bắt đầu hoạt động] :::happyPath
-    TripActive --> EditItinerary[Người dùng thêm hoạt động: Lặn ngắm san hô] :::happyPath
-    EditItinerary --> AIDetectChange[AI tự động phát hiện thay đổi<br/>Đề xuất so sánh Trước/Sau<br/><b>[Mức độ: Act]</b>] :::aiSystem
+    TripActive[Chuyến đi bắt đầu hoạt động]
+    EditItinerary[Người dùng thêm hoạt động: Lặn ngắm san hô]
+    AIDetectChange[AI tự động phát hiện thay đổi<br/>Đề xuất so sánh Trước/Sau<br/><b>[Mức độ: Act]</b>]
     
-    AIDetectChange --> AskRentBuy[Hỏi cách xử lý dụng cụ lặn<br/>Mang / Thuê / Mua<br/><b>[Mức độ: Ask]</b>] :::aiAsk
-    AskRentBuy -->|Chọn: Mua sắm| ShowShopping[Đưa link mua sắm tham khảo<br/><b>[Mức độ: Don't Act tự mua]</b>] :::aiAsk
-    AskRentBuy -->|Chọn: Thuê ngoài| UpdateRentList[Bỏ kính lặn, giữ đồ bơi] :::happyPath
+    AskRentBuy[Hỏi cách xử lý dụng cụ lặn<br/>Mang / Thuê / Mua<br/><b>[Mức độ: Ask]</b>]
+    ShowShopping[Đưa link mua sắm tham khảo<br/><b>[Mức độ: Don't Act tự mua]</b>]
+    UpdateRentList[Bỏ kính lặn, giữ đồ bơi]
     
-    AskRentBuy --> RemoveMotionSickness{Bỏ thuốc say tàu?} :::happyPath
-    RemoveMotionSickness -->|Đồng ý| AskSavePrefs[Hỏi để ghi nhớ lâu dài<br/><i>Quyền riêng tư</i>] :::aiAsk
-    AskSavePrefs --> SaveChecklistNhaTrang[Cập nhật Checklist Nha Trang] :::happyPath
+    RemoveMotionSickness{Bỏ thuốc say tàu?}
+    AskSavePrefs[Hỏi để ghi nhớ lâu dài<br/><i>Quyền riêng tư</i>]
+    SaveChecklistNhaTrang[Cập nhật Checklist Nha Trang]
     
-    %% 4. Các luồng Sai sót & Khôi phục (Failure & Recovery Scenarios)
-    ConfirmMainChecklist --> Scenario1_Weather{Dự báo thời tiết Fansipan<br/>chuyển từ nắng sang lạnh/mưa?} :::recovery
-    Scenario1_Weather -->|Có| WeatherWarning[Cảnh báo đỏ trên đầu màn hình<br/><i>System Explicit Feedback</i>] :::recovery
-    WeatherWarning --> UpdateWeatherPack[Nút: Cập nhật hành lý mới<br/>So sánh Trước/Sau giữ ấm] :::recovery
+    Scenario1_Weather{Dự báo thời tiết Fansipan<br/>chuyển từ nắng sang lạnh/mưa?}
+    WeatherWarning[Cảnh báo đỏ trên đầu màn hình<br/><i>System Explicit Feedback</i>]
+    UpdateWeatherPack[Nút: Cập nhật hành lý mới<br/>So sánh Trước/Sau giữ ấm]
+    
+    Scenario2_Weight{Hành lý Vietjet vượt 7kg<br/>hoặc chứa đồ cấm bay?}
+    WeightWarning[Thanh đo cân nặng báo Đỏ<br/>Gắn tag đỏ cạnh đồ cấm bay<br/><i>System Implicit/Explicit Feedback</i>]
+    OptimizeFlight[Nút: Tối ưu hóa theo luật bay<br/>Gợi ý thuê đồ tại điểm đến]
+    
+    Scenario3_Survey{Thêm hoạt động phức tạp<br/>Trekking Cát Tiên mùa mưa?}
+    MiniSurvey[Khảo sát nhanh độ khó<br/>Kinh nghiệm & Độ nhạy cảm da<br/><b>[Mức độ: Ask]</b>]
+    CustomProtectiveList[AI gợi ý đồ bảo hộ chuyên dụng<br/>kèm giải thích chống vắt]
+    
+    SaveChecklist[Cập nhật Checklist]
+    End([Hoàn thành chuẩn bị hành trang])
+
+    %% Gán class màu sắc cho từng node
+    class Start,End startEnd;
+    class OnboardingWelcome,OnboardingPerms,OnboardingInput,UserSelectsLangbiang,DraftChecklist,UserEditChecklist,ConfirmMainChecklist,TripActive,EditItinerary,UpdateRentList,SaveChecklistNhaTrang,CustomProtectiveList happyPath;
+    class AIProcessing,CheckContext,AdjustTrekkingChecklist,AIDetectChange feedback;
+    class AskLangbiang,AskReasonRemove,AskRentBuy,ShowShopping,AskSavePrefs,MiniSurvey aiAsk;
+    class RemoveTrekking,RemoveMotionSickness,Scenario1_Weather,WeatherWarning,UpdateWeatherPack,Scenario2_Weight,WeightWarning,OptimizeFlight,Scenario3_Survey,SaveChecklist recovery;
+
+    %% Thiết lập các đường nối liên kết (Flow logic)
+    Start --> OnboardingWelcome
+    OnboardingWelcome --> OnboardingPerms
+    OnboardingPerms --> OnboardingInput
+    OnboardingInput --> AIProcessing
+    AIProcessing --> CheckContext
+    
+    CheckContext -->|Thiếu thông tin| AskLangbiang
+    AskLangbiang --> UserSelectsLangbiang
+    UserSelectsLangbiang --> DraftChecklist
+    CheckContext -->|Đủ thông tin| DraftChecklist
+    
+    DraftChecklist --> UserEditChecklist
+    UserEditChecklist --> RemoveTrekking
+    RemoveTrekking -->|Có| AskReasonRemove
+    AskReasonRemove --> ChooseJeep
+    ChooseJeep --> AdjustTrekkingChecklist
+    AdjustTrekkingChecklist --> ConfirmMainChecklist
+    RemoveTrekking -->|Không| ConfirmMainChecklist
+
+    ConfirmMainChecklist --> TripActive
+    TripActive --> EditItinerary
+    EditItinerary --> AIDetectChange
+    
+    AIDetectChange --> AskRentBuy
+    AskRentBuy -->|Chọn: Mua sắm| ShowShopping
+    AskRentBuy -->|Chọn: Thuê ngoài| UpdateRentList
+    
+    AskRentBuy --> RemoveMotionSickness
+    RemoveMotionSickness -->|Đồng ý| AskSavePrefs
+    AskSavePrefs --> SaveChecklistNhaTrang
+    
+    ConfirmMainChecklist --> Scenario1_Weather
+    Scenario1_Weather -->|Có| WeatherWarning
+    WeatherWarning --> UpdateWeatherPack
     UpdateWeatherPack --> SaveChecklist
     
-    ConfirmMainChecklist --> Scenario2_Weight{Hành lý Vietjet vượt 7kg<br/>hoặc chứa đồ cấm bay?} :::recovery
-    Scenario2_Weight -->|Có| WeightWarning[Thanh đo cân nặng báo Đỏ<br/>Gắn tag đỏ cạnh đồ cấm bay<br/><i>System Implicit/Explicit Feedback</i>] :::recovery
-    WeightWarning --> OptimizeFlight[Nút: Tối ưu hóa theo luật bay<br/>Gợi ý thuê đồ tại điểm đến] :::recovery
+    ConfirmMainChecklist --> Scenario2_Weight
+    Scenario2_Weight -->|Có| WeightWarning
+    WeightWarning --> OptimizeFlight
     OptimizeFlight --> SaveChecklist
     
-    ConfirmMainChecklist --> Scenario3_Survey{Thêm hoạt động phức tạp<br/>Trekking Cát Tiên mùa mưa?} :::recovery
-    Scenario3_Survey -->|Có| MiniSurvey[Khảo sát nhanh độ khó<br/>Kinh nghiệm & Độ nhạy cảm da<br/><b>[Mức độ: Ask]</b>] :::aiAsk
-    MiniSurvey --> CustomProtectiveList[AI gợi ý đồ bảo hộ chuyên dụng<br/>kèm giải thích chống vắt] :::happyPath
+    ConfirmMainChecklist --> Scenario3_Survey
+    Scenario3_Survey -->|Có| MiniSurvey
+    MiniSurvey --> CustomProtectiveList
     CustomProtectiveList --> SaveChecklist
 
-    %% Kết thúc hành trình
-    SaveChecklistNhaTrang --> End([Hoàn thành chuẩn bị hành trang]) :::startEnd
-    SaveChecklist --> End([Hoàn thành chuẩn bị hành trang]) :::startEnd
+    SaveChecklistNhaTrang --> End
+    SaveChecklist --> End
 ```
 
 ---
