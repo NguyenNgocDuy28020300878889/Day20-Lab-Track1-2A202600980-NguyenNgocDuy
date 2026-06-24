@@ -707,34 +707,34 @@
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 50%;">🍂 Nature (Nhịp độ nhu cầu tự nhiên)</th>
-                                    <th style="width: 50%;">🌱 Nurture (Hoạt động nuôi dưỡng chủ động)</th>
+                                    <th style="width: 30%;">Nội dung</th>
+                                    <th style="width: 70%;">Câu trả lời của nhóm</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <p style="font-size: 13.5px; line-height: 1.5; color: var(--text-main);">
-                                            Nhu cầu chuẩn bị hành lý của Minh Anh chỉ xuất hiện tự nhiên từ **3 đến 7 ngày trước mỗi chuyến đi**.
-                                        </p>
-                                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic;">
-                                            Tần suất xuất hiện tự nhiên: Hàng tháng (Monthly/Bi-weekly).
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <ul style="font-size: 13px; display: flex; flex-direction: column; gap: 6px; padding-left: 10px;">
-                                            <li>Gửi **Thông báo đẩy (Push Notification)** cập nhật thời tiết tại điểm đến trước ngày đi 3 ngày.</li>
-                                            <li>Gửi email gợi ý check hành lý khi phát hiện vé tàu/máy bay đồng bộ trong lịch trình (nếu được đồng ý).</li>
-                                            <li>Tần suất: Tối đa **2 thông báo/chuyến đi**.</li>
-                                        </ul>
-                                    </td>
+                                    <td><strong>Natural frequency của use case</strong></td>
+                                    <td>**Monthly** (Trung bình 1-2 lần/tháng trước mỗi chuyến đi chơi xa hoặc công tác).</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="background: rgba(255, 234, 0, 0.02);">
-                                        <p style="font-size: 13px; color: var(--warning); font-weight: 600;">
-                                            ⚠️ Nguyên lý HCAI: Nurture phải tôn trọng và bám sát Nature. Tuyệt đối không giả định người dùng cần đóng hành lý hàng ngày để gửi spam thông báo, điều này sẽ tạo ra sự quấy rầy và dẫn đến việc gỡ ứng dụng nhanh chóng.
-                                        </p>
-                                    </td>
+                                    <td><strong>Internal trigger</strong></td>
+                                    <td>Sự lo lắng trước mỗi chuyến đi: sợ quên mang đồ quan trọng hoặc mang nhầm đồ cấm bay.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>External trigger hiện có</strong></td>
+                                    <td>Thông báo đẩy từ app: cảnh báo thời tiết xấu tại điểm đến hoặc cảnh báo vượt quá cân nặng hành lý cabin.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Một hoạt động nurture phù hợp</strong></td>
+                                    <td>Gửi thông báo cập nhật dự báo thời tiết tại điểm đến trước ngày đi 3 ngày kèm nút kiểm tra nhanh checklist.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vì sao nurture không quá dày hoặc quá thưa?</strong></td>
+                                    <td>Tần suất tối đa 2 thông báo/chuyến đi. Tránh gửi hàng ngày khi user không đi du lịch (spaming) gây khó chịu và uninstall app.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Metric dùng để theo dõi tác động</strong></td>
+                                    <td>Tỷ lệ mở thông báo (Push Open Rate) và tỷ lệ chuyển đổi hoàn tất checklist (`nurture_conversion_rate`).</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -752,41 +752,71 @@
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 30%;">Thành phần</th>
-                                    <th style="width: 70%;">Phân tích chi tiết thiết kế</th>
+                                    <th style="width: 20%;">Thành phần</th>
+                                    <th style="width: 35%;">Câu hỏi</th>
+                                    <th style="width: 45%;">Câu trả lời</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><strong>Why Habit?</strong></td>
-                                    <td>Biến ứng dụng thành công cụ mặc định xuất hiện trong tâm trí du khách trước mỗi chuyến đi, loại bỏ Excel hay ghi chép thủ công.</td>
+                                    <td>Vì sao user hoặc business cần hành vi này trở thành habit?</td>
+                                    <td>Giúp ứng dụng thành công cụ đầu tiên xuất hiện trong tâm trí du khách trước mỗi chuyến đi, thay thế file Excel hay ghi chép thủ công.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Intended Behavior</strong></td>
-                                    <td>Mở ứng dụng, kiểm tra các món đồ trên checklist thông minh gợi ý và xác nhận đóng gói.</td>
+                                    <td>Hành vi cụ thể nào cần được lặp lại?</td>
+                                    <td>Mở ứng dụng, kiểm tra các gợi ý và bấm xác nhận hoàn tất checklist hành lý trước khi khởi hành.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Frequency & Utility</strong></td>
+                                    <td>Hành vi có đủ thường xuyên hoặc đủ hữu ích để hình thành habit không?</td>
+                                    <td>Tần suất sử dụng trung bình (1-2 lần/tháng), tần suất thấp nhưng tiện ích rất cao (giúp tránh bị phạt quá cân và thiếu đồ).</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Internal Trigger</strong></td>
-                                    <td>Cảm xúc lo lắng trước chuyến đi: *"Thời tiết ở đó thế nào, mang áo này có lạnh không?", "Liệu mình có quên thứ gì quan trọng không?"*.</td>
+                                    <td>Nhu cầu hoặc cảm xúc nào xuất hiện thường xuyên nhất?</td>
+                                    <td>Sự lo âu, băn khoăn trước chuyến đi ("Liệu mình có quên thứ gì không?").</td>
                                 </tr>
                                 <tr>
                                     <td><strong>External Trigger</strong></td>
-                                    <td>Thông báo đẩy: *"Đà Lạt dự báo có mưa lớn vào cuối tuần này. Cập nhật ngay áo mưa và túi chống nước cho hành lý của bạn!"*.</td>
+                                    <td>Trigger nào xuất hiện đúng nơi và đúng thời điểm?</td>
+                                    <td>Thông báo đẩy trước chuyến đi 3 ngày cảnh báo thời tiết biến động hoặc cảnh báo quá hạn cân khi bay.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Action</strong></td>
-                                    <td>Click mở thông báo, tick chọn các món đồ trên checklist nháp đã được chuẩn bị sẵn chỉ trong 1 chạm.</td>
+                                    <td>Hành vi đơn giản nhất để nhận reward là gì?</td>
+                                    <td>Nhấp vào thông báo đẩy để mở checklist nháp và tick/untick kiểm tra đồ dùng.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Motivation</strong></td>
+                                    <td>User muốn thực hiện action vì điều gì?</td>
+                                    <td>Tìm kiếm cảm giác an tâm, an toàn và sẵn sàng cho chuyến đi sắp tới.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ability</strong></td>
+                                    <td>Rào cản nào cần được loại bỏ để action dễ hơn?</td>
+                                    <td>Rút gọn Onboarding (từ 5 bước còn 3 bước), giảm nhập liệu (từ 5 trường còn 2 trường) và trì hoãn yêu cầu cấp quyền GPS.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Variable Reward</strong></td>
-                                    <td>
-                                        * **The Hunt:** Tìm thấy các trang bị leo núi/trekking chuyên dụng phù hợp bất ngờ (như vớ chống vắt).<br>
-                                        * **The Self:** Nhìn thấy thanh đo cân nặng chuyển màu xanh lá an toàn, đạt trạng thái yên tâm và kiểm soát chuyến đi hoàn hảo.
-                                    </td>
+                                    <td>The Tribe, The Hunt hay The Self?</td>
+                                    <td>**The Hunt** (khám phá trang bị chuyên dụng) và **The Self** (thanh đo hành lý chuyển màu xanh lá an toàn, hoàn thành đóng gói).</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Investment</strong></td>
-                                    <td>Người dùng lưu thói quen cá nhân (ví dụ: *"Tôi đi xe Jeep, bỏ giày leo núi"* và đồng ý lưu lâu dài). AI học thói quen này để tùy biến cho các lần sau.</td>
+                                    <td>User bỏ lại content, data, reputation, skill hoặc công sức gì?</td>
+                                    <td>Lưu thói quen cá nhân (ví dụ: "Tôi đi xe Jeep, bỏ giày leo núi") để AI tự học và cá nhân hóa cho các lần sau.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Next Trigger</strong></td>
+                                    <td>Investment dẫn tới trigger tiếp theo như thế nào?</td>
+                                    <td>Hệ thống tự động kích hoạt nhắc nhở "Kiểm tra lại hành lý trước khi bay 4 tiếng" giúp khép kín vòng lặp.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>User Impact</strong></td>
+                                    <td>Habit này có thực sự có lợi cho user không?</td>
+                                    <td>Có lợi. Giảm bớt căng thẳng trước khi bay, tiết kiệm tiền bạc và đảm bảo an toàn hành trình.</td>
                                 </tr>
                             </tbody>
                         </table>

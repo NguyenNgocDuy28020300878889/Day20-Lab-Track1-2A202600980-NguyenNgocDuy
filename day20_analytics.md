@@ -118,28 +118,34 @@
 
 ## 09. Nature vs Nurture
 
-*   **Nature (Nhịp tự nhiên):** Nhu cầu đóng gói hành lý xuất hiện trước chuyến đi từ 3 đến 7 ngày.
-*   **Nurture (Hoạt động nuôi dưỡng):**
-    *   *Hoạt động:* Gửi thông báo đẩy (Push Notification) cập nhật thời tiết tại điểm đến trước ngày khởi hành 3 ngày và gợi ý kiểm tra lại hành lý.
-    *   *Tần suất nurture:* Tối đa 2 thông báo cho mỗi chuyến đi đã tạo. Không gửi spam hàng ngày vì sẽ gây gỡ cài đặt app (Uninstall rate tăng).
-    *   *Metric theo dõi:* Tỷ lệ mở thông báo (Push Open Rate) và tỷ lệ chuyển đổi thành việc mở lại checklist để hoàn tất (`nurture_conversion_rate`).
+| Nội dung | Câu trả lời |
+| :--- | :--- |
+| **Natural frequency của use case** | **Monthly** (Trung bình 1-2 lần/tháng trước mỗi chuyến đi chơi hoặc đi công tác). |
+| **Internal trigger** | Sự lo lắng trước chuyến đi: "Liệu mình có quên mang gì quan trọng không?", "Thời tiết ở đó thế nào?". |
+| **External trigger hiện có** | Thông báo đẩy từ app: "Dự báo thời tiết Đà Lạt có mưa giông lớn vào cuối tuần này. Cập nhật ngay áo mưa và túi chống nước cho hành lý!". |
+| **Một hoạt động nurture phù hợp** | Gửi thông báo đẩy cập nhật thời tiết tại điểm đến trước ngày đi 3 ngày và gợi ý kiểm tra lại hành lý. |
+| **Vì sao nurture không quá dày hoặc quá thưa?** | Tần suất tối đa 2 thông báo/chuyến đi. Nurture phải tôn trọng và bám sát nhịp tự nhiên của chuyến đi. Không spam hàng ngày tránh gỡ cài đặt app. |
+| **Metric dùng để theo dõi tác động** | Tỷ lệ mở thông báo (Push Open Rate) và tỷ lệ chuyển đổi mở checklist để hoàn thành (`nurture_conversion_rate`). |
 
 ---
 
 ## 10. Hook Model Review
 
-*   **Why Habit?** Giúp ứng dụng trở thành phản xạ tự nhiên của du khách mỗi khi họ chuẩn bị đi xa, thay vì họ phải tự tìm kiếm file Excel hay note tay.
-*   **Intended Behavior:** Mở ứng dụng để xem gợi ý hành trang tối ưu trước mỗi chuyến đi.
-*   **Frequency & Utility:** Tần suất sử dụng trung bình (1-2 lần/tháng), nhưng tiện ích cực kỳ cao (Perceived Utility lớn do giúp giải quyết nỗi lo phạt tiền quá cân và thiếu đồ).
-*   **Hook Loop:**
-    1.  **Internal Trigger (Tác nhân bên trong):** Sự lo lắng trước chuyến đi ("Thời tiết ở đó thế nào?", "Liệu mình có quên mang gì quan trọng không?").
-    2.  **External Trigger (Tác nhân bên ngoài):** Thông báo đẩy: *"Đà Lạt dự báo có mưa giông lớn vào cuối tuần này. Cập nhật ngay áo mưa và túi chống nước cho hành lý của bạn!"*.
-    3.  **Action (Hành động):** Click thông báo mở ứng dụng, thực hiện tick/untick đồ đạc trên checklist được AI gợi ý sẵn.
-    4.  **Variable Reward (Phần thưởng thay đổi):** 
-        *   *The Hunt (Tìm kiếm):* Khám phá ra các món đồ thông minh mà mình chưa nghĩ tới (ví dụ: tất chống vắt khi đi Cát Tiên) hoặc các điểm cho thuê lều giá rẻ tại Đà Lạt.
-        *   *The Self (Bản thân):* Thanh đo trọng lượng chuyển sang màu xanh lá báo an toàn, tạo cảm giác hoàn thành và kiểm soát tốt chuyến đi.
-    5.  **Investment (Sự đầu tư):** Người dùng lưu thói quen cá nhân (ví dụ: "Tôi không say tàu xe, bỏ thuốc say xe"), AI tự động học để không bao giờ gợi ý thuốc này cho Minh Anh nữa.
-*   **User Impact:** Giúp cải thiện chất lượng chuẩn bị chuyến đi, giảm thiểu căng thẳng trước khi bay và tiết kiệm chi phí phát sinh. Hoàn toàn không gây nghiện tiêu cực.
+| Thành phần | Câu hỏi | Câu trả lời |
+| :--- | :--- | :--- |
+| **Why Habit?** | Vì sao user hoặc business cần hành vi này trở thành habit? | Giúp ứng dụng trở thành phản xạ tự nhiên của du khách mỗi khi họ chuẩn bị đi xa, thay vì dùng Excel hay ghi chép thủ công. |
+| **Intended Behavior** | Hành vi cụ thể nào cần được lặp lại? | Mở ứng dụng, kiểm tra các món đồ trên checklist gợi ý và xác nhận đóng gói hành lý trước chuyến đi. |
+| **Frequency & Utility** | Hành vi có đủ thường xuyên hoặc đủ hữu ích để hình thành habit không? | Tần suất sử dụng trung bình (1-2 lần/tháng), tần suất thấp nhưng tiện ích cực kỳ cao (Perceived Utility lớn giúp tránh phạt quá cân, thiếu đồ sinh tồn). |
+| **Internal Trigger** | Nhu cầu hoặc cảm xúc nào xuất hiện thường xuyên nhất? | Cảm giác lo lắng, bồn chồn trước khi đi xa sợ chuẩn bị thiếu đồ hoặc mang nhầm đồ cấm bay. |
+| **External Trigger** | Trigger nào xuất hiện đúng nơi và đúng thời điểm? | Thông báo đẩy trước chuyến đi 3 ngày cảnh báo thời tiết biến động hoặc cảnh báo quá hạn cân khi bay. |
+| **Action** | Hành vi đơn giản nhất để nhận reward là gì? | Click thông báo mở ứng dụng và click tick/untick hành lý trên checklist được AI chuẩn bị sẵn. |
+| **Motivation** | User muốn thực hiện action vì điều gì? | Tìm kiếm sự an tâm, an toàn và tự tin trước khi bắt đầu hành trình (Motivation: Pleasure/Pain, Hope/Fear). |
+| **Ability** | Rào cản nào cần được loại bỏ để action dễ hơn? | Đã rút gọn Onboarding từ 5 bước xuống 3 bước, giảm nhập liệu từ 5 trường xuống 2 trường, trì hoãn xin quyền GPS để giảm thiểu tối đa rào cản thời gian và nhận thức (Time and Brain cycles). |
+| **Variable Reward** | The Tribe, The Hunt hay The Self? | **The Hunt** (khám phá đồ dùng trekking chuyên dụng độc đáo, địa điểm thuê đồ giá rẻ) và **The Self** (hoàn thành checklist, thanh đo hành lý báo màu xanh an toàn). |
+| **Investment** | User bỏ lại content, data, reputation, skill hoặc công sức gì? | Nhập thói quen cá nhân (ví dụ: "Tôi đi xe Jeep, bỏ giày leo núi") và đồng ý lưu lâu dài để AI học thói quen. |
+| **Next Trigger** | Investment dẫn tới trigger tiếp theo như thế nào? | Hệ thống lưu cấu hình và tự động đặt lịch nhắc nhở "Kiểm tra lại hành lý trước khi bay 4 tiếng" để user hoàn tất lần cuối. |
+| **User Impact** | Habit này có thực sự có lợi cho user không? | Có lợi. Giúp chuẩn bị hành lý chu đáo, giảm stress trước chuyến đi, tiết kiệm chi phí quá cước và đảm bảo an toàn sinh tồn khi thời tiết đổi đột ngột. |
+
 
 ---
 
