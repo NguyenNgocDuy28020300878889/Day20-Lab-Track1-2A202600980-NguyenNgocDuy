@@ -37,24 +37,35 @@
 ## BÀI 2 — TỪ USE CASE TỚI RETENTION METRIC
 *(Core Action, Active User & Retention Metric)*
 
-### 1. Xác định Core Action
-*   **Core Job:** Chuẩn bị hành lý tối ưu và an toàn nhất cho chuyến đi dựa trên thời tiết và lịch trình hoạt động thực tế.
-*   **Core Action:** Người dùng bấm **Xác nhận checklist cuối cùng** (để tải về, in ra hoặc đánh dấu hoàn tất việc kiểm tra đồ đạc). 
-*   **Giải thích giá trị:** Khi bấm xác nhận, người dùng đã chấp nhận và chuyển đổi gợi ý của AI thành hành động đóng gói thực tế.
-*   **Thời điểm ghi nhận:** Khi nút xác nhận hoàn tất checklist được click thành công.
+### 1. Xác định Core Action (Nhóm phải mô tả)
 
-### 2. Định nghĩa Active User
-*   Một user được tính là **Active User** khi:
-    *   **Thực hiện hành động:** Hoàn tất xác nhận ít nhất 1 checklist hành lý.
-    *   **Khoảng thời gian:** Trong vòng 30 ngày (Monthly cadence).
-    *   *Công thức:* Một user được tính là active khi *finalized_checklist* $\ge 1$ trong *30 ngày*.
+| Câu hỏi | Câu trả lời |
+| :--- | :--- |
+| **Core job của use case là gì?** | Chuẩn bị hành lý tối ưu và an toàn nhất cho chuyến đi dựa trên thời tiết và lịch trình hoạt động thực tế. |
+| **Core action là gì?** | Người dùng bấm **Xác nhận checklist cuối cùng** (để tải về, in ra hoặc đánh dấu hoàn tất việc kiểm tra đồ đạc). |
+| **Vì sao action này cho thấy user nhận được value?** | Khi bấm xác nhận, người dùng đã đồng ý và chuyển đổi các gợi ý thông minh của AI thành hành động đóng gói hành lý thực tế để chuẩn bị đi du lịch. |
+| **Khi nào action được tính là đã xảy ra?** | Khi người dùng click nút "Xác nhận hành lý" thành công trên giao diện và hệ thống ghi nhận sự kiện. |
 
-### 3. Chọn Retention Metric theo Natural Frequency
-*   **Tần suất tự nhiên (Natural Frequency):** **Monthly** (Hàng tháng) phù hợp với hành vi du lịch/đi xa tự nhiên của persona.
-*   **Retention Metric lựa chọn:** **Monthly Cohort Retention (Tỷ lệ duy trì theo tháng)**.
-    *   *Công thức tính:* 
-        $$\text{Month 1 Retention Rate} = \frac{\text{Số user trong Cohort tháng } N \text{ có } \ge 1 \text{ core action ở tháng } N+1}{\text{Tổng số user trong Cohort tạo checklist lần đầu ở tháng } N} \times 100\%$$
-*   **Vì sao phù hợp:** Việc du lịch không diễn ra hàng ngày, do đó đo lường theo tháng phản ánh chính xác chu kỳ tự nhiên của sản phẩm.
+### 2. Định nghĩa Active User (Nhóm phải trả lời)
+
+*   **Chỉ mở app có được tính active không?** Không. Việc mở app chỉ tính là session truy cập bình thường (Visitor), người dùng chưa tương tác để nhận được giá trị thực tế của sản phẩm.
+*   **User phải thực hiện core action nào?** Nhấn nút "Xác nhận checklist cuối cùng" (Finalize Checklist).
+*   **Cần thực hiện bao nhiêu lần?** Ít nhất 1 lần.
+*   **Trong khoảng thời gian nào?** Trong vòng 30 ngày (Monthly cadence).
+*   **Hoàn thành câu:**
+    > Một user được tính là active khi **hoàn thành xác nhận ít nhất 1 checklist hành lý** trong **30 ngày**.
+
+### 3. Bảng tổng hợp các thành phần (Nhóm phải ghi đầy đủ)
+
+| Thành phần | Câu trả lời |
+| :--- | :--- |
+| **Persona và use case** | **Nguyễn Minh Anh (26 tuổi)**. Use case: gợi ý và chuẩn bị hành lý tối giản dưới 7kg xách tay, phù hợp thời tiết và hoạt động chuyến đi. |
+| **Natural frequency** | **Monthly** (1-2 lần/tháng trước mỗi chuyến đi chơi hoặc đi công tác xa). |
+| **Core action** | Bấm **Xác nhận checklist cuối cùng** để lưu hành lý. |
+| **Active user definition** | Một user được tính là active khi hoàn thành xác nhận ít nhất 1 checklist hành lý trong vòng 30 ngày. |
+| **Retention metric** | **Monthly Cohort Retention** (Tỷ lệ quay lại tạo checklist ở tháng thứ N+1). |
+| **Vì sao metric phù hợp với frequency?** | Vì nhịp độ đi du lịch/đi xa tự nhiên là hàng tháng. Đo lường theo tháng phản ánh đúng giá trị thực tế mà không làm phiền người dùng bằng các thông báo spam hàng ngày để tăng chỉ số ảo (DAU). |
+
 
 ---
 
