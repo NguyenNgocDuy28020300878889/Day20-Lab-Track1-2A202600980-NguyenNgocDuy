@@ -3,349 +3,1145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Smart Packing - Presentation Hub</title>
+    <title>Day 20 Lab - Retention, Engagement & Habit Loop</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #09090e 0%, #11111a 100%);
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --primary: #00e5ff;
-            --primary-glow: rgba(0, 229, 255, 0.2);
-            --text-main: #f5f5f7;
-            --text-muted: #8e8e93;
-            --card-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
-            --secondary: #d500f9;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            width: 1000px;
-            background: rgba(18, 18, 30, 0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            box-shadow: var(--card-shadow);
-            padding: 40px;
-            backdrop-filter: blur(20px);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 25px;
-        }
-
-        .badge-track {
-            font-size: 11px;
-            font-weight: 700;
-            background: rgba(0, 229, 255, 0.1);
-            color: var(--primary);
-            padding: 6px 14px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            margin-bottom: 14px;
-            border: 1px solid rgba(0, 229, 255, 0.2);
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #ffffff 40%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        h2 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Prototypes Panel */
-        .section-box {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 24px;
-        }
-
-        .proto-link-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            padding: 14px 18px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.3s ease;
-        }
-
-        .proto-link-card:hover {
-            border-color: var(--primary);
-            background: rgba(0, 229, 255, 0.03);
-            transform: translateX(4px);
-        }
-
-        .proto-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .proto-title {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .proto-desc {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .arrow-icon {
-            font-size: 16px;
-            color: var(--primary);
-        }
-
-        /* Demo Path Panel */
-        .demo-step {
-            position: relative;
-            padding-left: 24px;
-            border-left: 2px solid var(--glass-border);
-            margin-bottom: 16px;
-        }
-
-        .demo-step::before {
-            content: "";
-            position: absolute;
-            left: -6px;
-            top: 2px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .demo-time {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-
-        .demo-title {
-            font-size: 13.5px;
-            font-weight: 600;
-            margin: 2px 0 4px 0;
-        }
-
-        .demo-desc {
-            font-size: 11.5px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        /* Rationale Cards */
-        .rationale-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .rationale-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .rationale-card:hover {
-            border-color: rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        .rat-q {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .rat-a {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Main Style Link -->
+    <link rel="stylesheet" href="style_day20.css">
 </head>
 <body>
 
-    <div class="container">
-        <!-- Presentation Header -->
-        <header>
-            <div class="badge-track">Track: AI Travel Planner</div>
-            <h1>Smart Packing & Prep Presentation Hub</h1>
-            <p>Trang chủ tổng hợp bài thực hành Ngày 18 — Human-Centered AI Design</p>
-        </header>
-
-        <div class="grid-layout">
-            <!-- LEFT: Prototyping Link Hub -->
-            <div class="section-box">
-                <h2>🔗 Link Tương Tác Prototype</h2>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">
-                    Mở các tệp prototype tương tác HTML dưới đây để demo chạy thử các kịch bản của AI:
-                </p>
-
-                <!-- Onboarding -->
-                <a href="onboarding.html" target="_blank" class="proto-link-card">
-                    <div class="proto-info">
-                        <span class="proto-title">Giai đoạn 2: Luồng Onboarding</span>
-                        <span class="proto-desc">Thiết lập kỳ vọng & Xin quyền thời tiết, lịch trình.</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-
-                <!-- Main Flow -->
-                <a href="mainpath.html" target="_blank" class="proto-link-card">
-                    <div class="proto-info">
-                        <span class="proto-title">Giai đoạn 3: Luồng Chính & Tự Chủ</span>
-                        <span class="proto-desc">Hỏi bối cảnh Langbiang (Ask), tự sinh checklist (Act), giải trình (Explainability).</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-
-                <!-- Recovery -->
-                <a href="recovery.html" target="_blank" class="proto-link-card">
-                    <div class="proto-info">
-                        <span class="proto-title">Giai đoạn 4: Sai sót & Khôi phục</span>
-                        <span class="proto-desc">Fansipan đổi thời tiết đột ngột & Tối ưu hóa cân nặng bay Vietjet.</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-
-                <!-- Feedback -->
-                <a href="feedback.html" target="_blank" class="proto-link-card">
-                    <div class="proto-info">
-                        <span class="proto-title">Giai đoạn 5: Vòng Phản hồi 2x2</span>
-                        <span class="proto-desc">Chi tiết tương tác Explicit & Implicit Feedback giữa User và System.</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">Day 20 Lab</h1>
+                <p class="sidebar-subtitle">HCAI: Retention & Habit Loop</p>
             </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="switchSlide(0)">
+                    <span class="nav-item-num">00</span> Prototype Ngày 18
+                </li>
+                <li class="nav-item" onclick="switchSlide(1)">
+                    <span class="nav-item-num">01</span> Customer Retention
+                </li>
+                <li class="nav-item" onclick="switchSlide(2)">
+                    <span class="nav-item-num">02</span> Core Action & Active
+                </li>
+                <li class="nav-item" onclick="switchSlide(3)">
+                    <span class="nav-item-num">03</span> Retention Metric
+                </li>
+                <li class="nav-item" onclick="switchSlide(4)">
+                    <span class="nav-item-num">04</span> Onboarding Audit
+                </li>
+                <li class="nav-item" onclick="switchSlide(5)">
+                    <span class="nav-item-num">05</span> Redesigned Flow
+                </li>
+                <li class="nav-item" onclick="switchSlide(6)">
+                    <span class="nav-item-num">06</span> Before / After
+                </li>
+                <li class="nav-item" onclick="switchSlide(7)">
+                    <span class="nav-item-num">07</span> Measurement Ladder
+                </li>
+                <li class="nav-item" onclick="switchSlide(8)">
+                    <span class="nav-item-num">08</span> North Star Metric
+                </li>
+                <li class="nav-item" onclick="switchSlide(9)">
+                    <span class="nav-item-num">09</span> Nature vs Nurture
+                </li>
+                <li class="nav-item" onclick="switchSlide(10)">
+                    <span class="nav-item-num">10</span> Hook Loop Model
+                </li>
+                <li class="nav-item" onclick="switchSlide(11)">
+                    <span class="nav-item-num">11</span> Metric Tracking
+                </li>
+                <li class="nav-item" onclick="switchSlide(12)">
+                    <span class="nav-item-num">12</span> Demo Path
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <span>Mã HV: 2A202600980</span>
+                <span>Học viên: Nguyễn Ngọc Duy</span>
+                <span>Nhóm: N01 - Day18</span>
+            </div>
+        </aside>
 
-            <!-- RIGHT: Presentation Demo Path -->
-            <div class="section-box">
-                <h2>⏱️ Kịch Bản Thuyết Trình 5 Phút</h2>
+        <!-- Main Display Content -->
+        <main class="main-content">
+            
+            <!-- SLIDE 00: PROTOTYPE NGAY 18 -->
+            <section id="slide-0" class="slide active">
+                <span class="slide-tag">00 — CURRENT STATE</span>
+                <h2 class="slide-title">Hệ Thống Prototype Ngày 18</h2>
                 
-                <!-- Step 1 -->
-                <div class="demo-step">
-                    <div class="demo-time">0:00 - 1:00 (1 Phút)</div>
-                    <div class="demo-title">Giới thiệu Lát cắt Tính năng</div>
-                    <div class="demo-desc">
-                        Giới thiệu tính năng gợi ý hành trang theo hoạt động/thời tiết. Nêu rõ mục tiêu giúp tối ưu hành lý và giảm thiểu rủi ro chuẩn bị thiếu đồ.
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 12px;">Tổng quan Lát cắt & Liên kết</h3>
+                    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">
+                        Lát cắt thiết kế tập trung vào việc **Gợi ý hành trang theo thời tiết và hoạt động chuyến đi (Smart Packing & Prep)** của ứng dụng AI Travel Planner. Dưới đây là các đường dẫn đến nguyên bản các giao diện tương tác và kịch bản đã xây dựng từ Ngày 18:
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                        <a href="onboarding.html" target="_blank" class="proto-link-card">
+                            <div class="proto-info">
+                                <span class="proto-title">Màn hình Onboarding (Day 18)</span>
+                                <span class="proto-desc">Luồng thiết lập kỳ vọng và xin cấp quyền hệ thống.</span>
+                            </div>
+                            <span class="arrow-icon">→</span>
+                        </a>
+                        <a href="mainpath.html" target="_blank" class="proto-link-card">
+                            <div class="proto-info">
+                                <span class="proto-title">Happy Path & Agency Levels</span>
+                                <span class="proto-desc">Hỏi thêm bối cảnh (Ask), tự sinh checklist (Act) & Opt-in.</span>
+                            </div>
+                            <span class="arrow-icon">→</span>
+                        </a>
+                        <a href="recovery.html" target="_blank" class="proto-link-card">
+                            <div class="proto-info">
+                                <span class="proto-title">Failure & Recovery Flow</span>
+                                <span class="proto-desc">Xử lý thời tiết thay đổi đột ngột & Hành lý quá cân cabin.</span>
+                            </div>
+                            <span class="arrow-icon">→</span>
+                        </a>
+                        <a href="feedback.html" target="_blank" class="proto-link-card">
+                            <div class="proto-info">
+                                <span class="proto-title">Vòng Phản Hồi 2x2 Dashboard</span>
+                                <span class="proto-desc">Trực quan tương tác Explicit & Implicit Feedback.</span>
+                            </div>
+                            <span class="arrow-icon">→</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="demo-step">
-                    <div class="demo-time">1:00 - 2:00 (1 Phút)</div>
-                    <div class="demo-title">Trình bày Onboarding & Kỳ vọng</div>
-                    <div class="demo-desc">
-                        Click mở <strong>onboarding.html</strong>. Trình diễn cách thiết lập kỳ vọng đúng đắn (AI có thể làm gì/không thể làm gì) và cơ chế toggle xin quyền minh bạch.
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 12px;">Cấu trúc Tệp tin Dự án</h3>
+                    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 15px;">
+                        Mã nguồn của toàn bộ dự án được phân chia một cách logic nhằm duy trì tính minh bạch giữa phần của Ngày 18 và phần nâng cấp Day 20:
+                    </p>
+                    <ul style="font-size: 12.5px; list-style: inside square; padding-left: 10px; display: flex; flex-direction: column; gap: 8px; color: var(--text-main);">
+                        <li><strong>Các trang Prototype (Ngày 18):</strong> <a href="onboarding.html" target="_blank">onboarding.html</a>, <a href="mainpath.html" target="_blank">mainpath.html</a>, <a href="recovery.html" target="_blank">recovery.html</a>, <a href="feedback.html" target="_blank">feedback.html</a>.</li>
+                        <li><strong>Trình diễn chính & So sánh (Day 20):</strong> <a href="index.html">index.html</a> (Trang hiện tại), liên kết với <a href="style_day20.css">style_day20.css</a>.</li>
+                        <li><strong>Tài liệu thuyết trình & Phân tích chi tiết:</strong> <a href="day20_analytics.md" target="_blank">day20_analytics.md</a>, <a href="kichban.md" target="_blank">kichban.md</a>, <a href="flowmap.md" target="_blank">flowmap.md</a>.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SLIDE 01: CUSTOMER RETENTION CANVAS -->
+            <section id="slide-1" class="slide">
+                <span class="slide-tag">01 — CANVAS</span>
+                <h2 class="slide-title">Customer Retention Canvas</h2>
+                
+                <div class="card">
+                    <div class="canvas-grid">
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">🔴 The Problem</div>
+                            <div class="canvas-block-desc">
+                                "Tôi mất quá nhiều thời gian tra cứu thời tiết, lịch trình để lên danh sách đồ đạc. Tôi luôn lo lắng bị phạt quá cân hành lý bay hoặc mang nhầm vật dụng cấm, và đôi khi gặp rủi ro thời tiết đột biến gây thiếu đồ ấm/chống mưa."
+                            </div>
+                            <div class="canvas-block-sub">Định nghĩa theo góc nhìn người dùng</div>
+                        </div>
+                        
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">👤 The Persona</div>
+                            <div class="canvas-block-desc">
+                                **Nguyễn Minh Anh (26 tuổi)**, nhân viên văn phòng năng động. Thường đi du lịch tự túc cuối tuần hoặc công tác kết hợp leo núi dã ngoại nhẹ. Yêu cầu đóng gói nhanh, gọn nhẹ (<7kg cabin) nhưng an toàn và đầy đủ.
+                            </div>
+                        </div>
+                        
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">🚫 Anti-Persona</div>
+                            <div class="canvas-block-desc">
+                                **Khách nghỉ dưỡng trọn gói (Tour du lịch)**. Lịch trình di chuyển khép kín, có xe đưa đón tận nơi, đơn vị lữ hành chuẩn bị trước mọi tiện nghi, hành lý ký gửi thoải mái, không cần tối ưu hay kiểm soát thời tiết đột xuất.
+                            </div>
+                        </div>
+                        
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">⚡ The Why</div>
+                            <div class="canvas-block-desc">
+                                Đóng gói hành lý nhanh chóng dưới 5 phút, tránh mất tiền phạt quá cước tại sân bay, tự tin và an tâm tuyệt đối vì hành trang phù hợp 100% với điều kiện thời tiết thực tế và quy quy định bay.
+                            </div>
+                        </div>
+                        
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">🔄 The Alternative</div>
+                            <div class="canvas-block-desc">
+                                Tạo note tay trên điện thoại, sử dụng file Excel mẫu chuẩn bị chung chung tải trên mạng, hỏi thăm bạn bè đã đi trước đó, hoặc đóng gói theo cảm tính rồi mua bổ sung đồ thiếu tại điểm đến.
+                            </div>
+                        </div>
+                        
+                        <div class="canvas-block">
+                            <div class="canvas-block-title">⏱️ The Frequency</div>
+                            <div class="canvas-block-desc">
+                                **Monthly (Hàng tháng)**. Trung bình phát sinh nhu cầu 1-2 lần/tháng trước mỗi chuyến đi chơi xa hoặc đi công tác.
+                            </div>
+                            <div class="canvas-block-sub">Tần suất tự nhiên của vấn đề</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 02: CORE ACTION & ACTIVE USER -->
+            <section id="slide-2" class="slide">
+                <span class="slide-tag">02 — ACTION & USER</span>
+                <h2 class="slide-title">Core Action & Active User Definition</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">Core Job of the Use Case</h3>
+                    <p style="font-size: 14px; margin-top: 8px;">
+                        Giúp du khách chuẩn bị hành trang tối ưu, gọn nhẹ và an toàn nhất dựa trên phân tích thời tiết điểm đến và các hoạt động thực tế trong lịch trình.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Core Action (Hành động cốt lõi)</h3>
+                    <p style="font-size: 14px; margin-top: 8px; margin-bottom: 12px;">
+                        Người dùng bấm **Xác nhận checklist cuối cùng** (để tải về, in ra hoặc đánh dấu hoàn tất việc kiểm tra đồ).
+                    </p>
+                    <div class="hcai-alert hcai-alert-info">
+                        <div>
+                            <div class="hcai-alert-title">Tại sao hành động này thể hiện người dùng nhận được giá trị?</div>
+                            <div class="hcai-alert-desc">Khi bấm xác nhận, người dùng đã đồng ý với các gợi ý thông minh từ AI (sau khi đã tự tinh chỉnh thêm bớt theo ý muốn), chuyển đổi từ việc xem gợi ý sang hành động thực tế là đóng gói đồ đạc.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Active User Definition (Định nghĩa người dùng hoạt động)</h3>
+                    <p style="font-size: 15px; font-weight: 500; text-align: center; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-top: 10px;">
+                        Một user được tính là active khi thực hiện <span style="color: var(--primary); font-weight: 700;">xác nhận ít nhất 1 checklist hành lý</span> trong vòng <span style="color: var(--primary); font-weight: 700;">30 ngày</span>.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 03: NATURAL FREQUENCY & RETENTION METRIC -->
+            <section id="slide-3" class="slide">
+                <span class="slide-tag">03 — FREQUENCY & METRIC</span>
+                <h2 class="slide-title">Natural Frequency & Retention Metric</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 10px;">Nhịp sử dụng tự nhiên</h3>
+                    <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.5;">
+                        Hành vi chuẩn bị hành lý gắn liền với tần suất đi du lịch hoặc công tác của người dùng. Đối với Persona mục tiêu (Nguyễn Minh Anh), nhịp độ tự nhiên là **Monthly (Hàng tháng)**.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 10px;">Retention Metric Lựa Chọn</h3>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Monthly Cohort Retention (Tỷ lệ giữ chân theo tháng)</p>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+                        Đo lường tỷ lệ phần trăm người dùng tạo hành lý ở tháng thứ N quay lại tạo ít nhất một checklist hành lý mới trong tháng N+1.
+                    </p>
+                    
+                    <div class="hcai-alert hcai-alert-warning">
+                        <div>
+                            <div class="hcai-alert-title">Tại sao không chọn DAU (Daily) hoặc WAU (Weekly)?</div>
+                            <div class="hcai-alert-desc">Người dùng không thể đi du lịch hay đi công tác hàng ngày. Việc ép buộc các chỉ số tương tác hàng ngày sẽ dẫn đến việc thiết kế các tính năng spam thông báo vô nghĩa, làm phiền người dùng và gây phản tác dụng (tăng uninstall rate). Chỉ số Monthly phản ánh đúng và lành mạnh giá trị thực tế của ứng dụng.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 04: ONBOARDING AUDIT -->
+            <section id="slide-4" class="slide">
+                <span class="slide-tag">04 — AUDIT</span>
+                <h2 class="slide-title">Onboarding Audit & Friction Points</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">Phân tích luồng Onboarding cũ (Ngày 18)</h3>
+                    
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Các bước hiện tại</th>
+                                    <th style="width: 15%;">Nhãn Audit</th>
+                                    <th style="width: 35%;">Mô tả điểm ma sát (Friction)</th>
+                                    <th style="width: 25%;">Hướng xử lý</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. Màn hình Chào mừng (Welcome)</strong></td>
+                                    <td><span class="tag tag-keep">KEEP</span></td>
+                                    <td>Thiết lập kỳ vọng tốt: AI có thể gợi ý, không tự động mua bán hay thanh toán.</td>
+                                    <td>Giữ nguyên, bổ sung CTA bắt đầu nhanh rõ ràng.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Cấp quyền hệ thống (Permissions)</strong></td>
+                                    <td><span class="tag tag-remove">DELAY</span></td>
+                                    <td>Bắt người dùng bật định vị (GPS) và đọc Lịch trình ngay lập tức khi chưa thấy bất kỳ checklist nào. Gây cảm giác e ngại bảo mật.</td>
+                                    <td>**Hoàn toàn trì hoãn (Delay)**. Không xin quyền lúc khởi động. Chỉ xin quyền khi người dùng click "Đồng bộ thời tiết" trên checklist nháp.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Nhập Form 5 trường thông tin</strong></td>
+                                    <td><span class="tag tag-simplify">SIMPLIFY</span></td>
+                                    <td>Bắt nhập quá nhiều: Điểm đến, Ngày đi, Ngày về, Phương tiện, Kiểu đóng đồ. Gây mất thời gian (~50 giây).</td>
+                                    <td>Tối giản xuống còn **2 trường bắt buộc**: Điểm đến và Thời gian đi. Các thông tin khác để mặc định và tùy chỉnh sau.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Màn Loading phân tích</strong></td>
+                                    <td><span class="tag tag-keep">KEEP</span></td>
+                                    <td>Minh bạch hóa hoạt động của AI (đang quét thời tiết và hành trình).</td>
+                                    <td>Giữ nguyên nhưng rút ngắn thời gian xử lý giả định.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5. Hiển thị Checklist</strong></td>
+                                    <td><span class="tag tag-keep">KEEP</span></td>
+                                    <td>Đây là nơi Core Action & Aha Moment xảy ra.</td>
+                                    <td>Hiển thị nhanh hơn để rút ngắn Time to Value.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 05: REDESIGNED FLOW SIMULATOR -->
+            <section id="slide-5" class="slide">
+                <span class="slide-tag">05 — SIMULATOR</span>
+                <h2 class="slide-title">Interactive Onboarding Flow Simulator</h2>
+                
+                <div class="card" style="padding: 20px;">
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; text-align: center;">
+                        Trải nghiệm tương tác trực tiếp hai luồng Onboarding dưới đây để so sánh ma sát (Friction) và tốc độ chạm đến **Aha Moment (Checklist Nháp)**.
+                    </p>
+                    
+                    <div class="flow-compare-layout">
+                        <!-- LEFT: BEFORE SIMULATOR -->
+                        <div>
+                            <h3 style="font-size: 14px; text-align: center; color: var(--danger); margin-bottom: 12px; font-weight: 700; text-transform: uppercase;">Luồng Cũ (Day 18 - Nhiều Ma Sát)</h3>
+                            <div class="phone-mockup" id="phone-before">
+                                <div class="phone-screen">
+                                    <div class="phone-header">
+                                        <span>Before Flow</span>
+                                        <span>09:41</span>
+                                    </div>
+                                    
+                                    <!-- Screen 1: Welcome -->
+                                    <div class="phone-body" id="before-screen-1">
+                                        <div class="phone-title">🎒 Smart Packing</div>
+                                        <div class="phone-desc">Chào mừng bạn! AI sẽ đề xuất hành lý dựa trên thời tiết. Tôi là trợ lý gợi ý hành trình, không tự động mua bán hay thanh toán.</div>
+                                        <button class="phone-btn" onclick="nextBefore(2)">Tiếp tục</button>
+                                    </div>
+                                    
+                                    <!-- Screen 2: Permissions -->
+                                    <div class="phone-body" id="before-screen-2" style="display: none;">
+                                        <div class="phone-title">🔒 Yêu Cầu Cấp Quyền</div>
+                                        <div class="phone-desc">Để ứng dụng hoạt động tốt nhất, vui lòng bật các quyền sau:</div>
+                                        
+                                        <div class="permission-toggle-box">
+                                            <div class="toggle-label-box">
+                                                <span class="toggle-title">Quyền vị trí GPS</span>
+                                                <span class="toggle-desc">Đọc thời tiết điểm đến tự động</span>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="before-gps-perm">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="permission-toggle-box">
+                                            <div class="toggle-label-box">
+                                                <span class="toggle-title">Đồng bộ lịch trình</span>
+                                                <span class="toggle-desc">Đọc hoạt động chuyến đi của bạn</span>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="before-cal-perm">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <button class="phone-btn" onclick="nextBefore(3)">Đồng ý & Tiếp tục</button>
+                                    </div>
+                                    
+                                    <!-- Screen 3: Form -->
+                                    <div class="phone-body" id="before-screen-3" style="display: none;">
+                                        <div class="phone-title">📋 Khởi Tạo Chuyến Đi</div>
+                                        <div class="form-group">
+                                            <label class="form-label">Điểm đến</label>
+                                            <input type="text" class="phone-input" id="before-dest" placeholder="Ví dụ: Đà Lạt">
+                                        </div>
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                            <div class="form-group">
+                                                <label class="form-label">Ngày đi</label>
+                                                <input type="date" class="phone-input" id="before-sdate" value="2026-07-10">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Ngày về</label>
+                                                <input type="date" class="phone-input" id="before-edate" value="2026-07-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Phương tiện</label>
+                                            <input type="text" class="phone-input" id="before-trans" placeholder="Ví dụ: Xe khách/Trekking">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Kiểu hành lý</label>
+                                            <input type="text" class="phone-input" id="before-style" placeholder="Ví dụ: Gọn nhẹ/Đầy đủ">
+                                        </div>
+                                        <button class="phone-btn" onclick="nextBefore(4)">Tạo Checklist</button>
+                                    </div>
+                                    
+                                    <!-- Screen 4: Loading -->
+                                    <div class="phone-body" id="before-screen-4" style="display: none; align-items: center;">
+                                        <div style="width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear;"></div>
+                                        <div class="phone-title" style="margin-top: 15px;">AI đang phân tích...</div>
+                                        <div class="phone-desc">Quét thời tiết điểm đến và lịch trình chuyến đi</div>
+                                    </div>
+                                    
+                                    <!-- Screen 5: Checklist -->
+                                    <div class="phone-body" id="before-screen-5" style="display: none; justify-content: flex-start; gap: 10px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 13px; font-weight: 700;" id="before-check-title">CHECKLIST</span>
+                                            <span class="draft-meta">5 món đồ</span>
+                                        </div>
+                                        
+                                        <div class="draft-checklist-view">
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Áo thun mỏng</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Quần dài co giãn</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Áo mưa tiện lợi</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Giày leo núi</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Sạc dự phòng</span></div></div>
+                                        </div>
+                                        <button class="phone-btn" style="margin-top: 15px;" onclick="finalizeBefore()">Xác nhận hành lý</button>
+                                    </div>
+                                    
+                                    <!-- Screen 6: Final -->
+                                    <div class="phone-body" id="before-screen-6" style="display: none;">
+                                        <div class="phone-title" style="color: var(--success);">🎉 Đã Hoàn Tất!</div>
+                                        <div class="phone-desc">Checklist đã được xác nhận thành công và sẵn sàng để đóng gói hành lý.</div>
+                                        <button class="phone-btn-secondary" onclick="resetBefore()">Làm lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sim-controls">
+                                <div class="sim-dot active" id="before-dot-1"></div>
+                                <div class="sim-dot" id="before-dot-2"></div>
+                                <div class="sim-dot" id="before-dot-3"></div>
+                                <div class="sim-dot" id="before-dot-4"></div>
+                                <div class="sim-dot" id="before-dot-5"></div>
+                                <div class="sim-dot" id="before-dot-6"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- RIGHT: AFTER SIMULATOR -->
+                        <div>
+                            <h3 style="font-size: 14px; text-align: center; color: var(--success); margin-bottom: 12px; font-weight: 700; text-transform: uppercase;">Luồng Mới (Day 20 - Tối Giản & Cấp Quyền Sau)</h3>
+                            <div class="phone-mockup" id="phone-after">
+                                <div class="phone-screen">
+                                    <div class="phone-header">
+                                        <span>After Flow (Optimized)</span>
+                                        <span>09:41</span>
+                                    </div>
+                                    
+                                    <!-- Screen 1: Welcome & Value Prop -->
+                                    <div class="phone-body" id="after-screen-1">
+                                        <div class="phone-title">🎒 Smart Packing</div>
+                                        <div style="background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.15); border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 10px;">
+                                            <span style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase;">Giá trị cốt lõi</span>
+                                            <p style="font-size: 13px; font-weight: 600; margin-top: 4px; color: #fff;">Tự động tạo checklist hành lý tối ưu trong 10 giây</p>
+                                        </div>
+                                        <button class="phone-btn" onclick="nextAfter(2)">Bắt đầu ngay</button>
+                                    </div>
+                                    
+                                    <!-- Screen 2: Minimal Form (No permissions asked!) -->
+                                    <div class="phone-body" id="after-screen-2" style="display: none;">
+                                        <div class="phone-title">📋 Thông tin cơ bản</div>
+                                        <div class="form-group">
+                                            <label class="form-label">Tôi muốn đi đến</label>
+                                            <input type="text" class="phone-input" id="after-dest" placeholder="Nhập điểm đến (ví dụ: Đà Lạt)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Thời gian (Số ngày)</label>
+                                            <input type="number" class="phone-input" id="after-days" value="3" min="1" max="30">
+                                        </div>
+                                        <button class="phone-btn" onclick="nextAfter(3)">Tạo Checklist Nháp</button>
+                                    </div>
+                                    
+                                    <!-- Screen 3: Draft Checklist (Aha Moment reached immediately!) -->
+                                    <div class="phone-body" id="after-screen-3" style="display: none; justify-content: flex-start; gap: 8px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 12px; font-weight: 700; color: var(--primary);" id="after-check-title">CHECKLIST NHÁP</span>
+                                            <span class="draft-meta">3 món đồ nháp</span>
+                                        </div>
+                                        
+                                        <!-- Interactive weather sync component -->
+                                        <div id="weather-sync-banner" style="background: rgba(255, 234, 0, 0.08); border: 1px solid rgba(255, 234, 0, 0.2); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px;">
+                                            <span style="font-size: 10px; color: var(--warning); font-weight: 700;">⛅ CHƯA ĐỒNG BỘ THỜI TIẾT THỜI GIAN THỰC</span>
+                                            <button class="phone-btn" style="padding: 5px 8px; font-size: 9.5px; box-shadow: none;" onclick="triggerGPSPermission()">⚡ Đồng bộ thời tiết</button>
+                                        </div>
+                                        
+                                        <!-- Synchronized Weather Status (Hidden initially) -->
+                                        <div id="weather-synced-banner" style="display: none; background: rgba(0, 230, 118, 0.08); border: 1px solid rgba(0, 230, 118, 0.2); border-radius: 8px; padding: 8px 10px; flex-direction: column; gap: 2px;">
+                                            <span style="font-size: 10px; color: var(--success); font-weight: 700;">✅ ĐÃ ĐỒNG BỘ THỜI TIẾT ĐÀ LẠT</span>
+                                            <span style="font-size: 9px; color: var(--text-muted);">Dự báo: 15°C - Có mưa lớn (Đã thêm 2 đồ giữ ấm)</span>
+                                        </div>
+                                        
+                                        <div class="draft-checklist-view" id="after-checklist-items">
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Áo thun mỏng</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Quần dài co giãn</span></div></div>
+                                            <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Sạc dự phòng</span></div></div>
+                                        </div>
+                                        <button class="phone-btn" style="margin-top: 10px;" onclick="finalizeAfter()">Xác nhận hành lý</button>
+                                    </div>
+                                    
+                                    <!-- Screen 4: Contextual Permission Request -->
+                                    <div class="phone-body" id="after-screen-4" style="display: none;">
+                                        <div class="phone-title">🔒 Cấp Quyền Thời Tiết</div>
+                                        <div class="phone-desc">Smart Packing cần định vị GPS của thiết bị để tra cứu thời tiết chính xác tại điểm đến và bổ sung đồ ấm/đồ che mưa tự động.</div>
+                                        <button class="phone-btn" onclick="allowGPSPermission()">Đồng ý cấp quyền</button>
+                                        <button class="phone-btn-secondary" onclick="denyGPSPermission()">Từ chối</button>
+                                    </div>
+                                    
+                                    <!-- Screen 5: Final -->
+                                    <div class="phone-body" id="after-screen-5" style="display: none;">
+                                        <div class="phone-title" style="color: var(--success);">🎉 Đã Hoàn Tất!</div>
+                                        <div class="phone-desc">Checklist đã được lưu trữ thành công. Chúc bạn có một chuyến đi an tâm!</div>
+                                        <button class="phone-btn-secondary" onclick="resetAfter()">Làm lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sim-controls">
+                                <div class="sim-dot active" id="after-dot-1"></div>
+                                <div class="sim-dot" id="after-dot-2"></div>
+                                <div class="sim-dot" id="after-dot-3"></div>
+                                <div class="sim-dot" id="after-dot-4"></div>
+                                <div class="sim-dot" id="after-dot-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live Event Telemetry Viewer (Direct correlation with the code!) -->
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header-flex" style="margin-bottom: 12px; padding-bottom: 8px;">
+                        <h3 class="card-title">📡 Bảng Theo Dõi Sự Kiện Hệ Thống (Event Tracking Console)</h3>
+                        <span style="font-size: 11px; font-family: monospace; color: var(--success); font-weight: 700;">[STATUS: LISTENING]</span>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                        Bảng điều khiển này mô phỏng các sự kiện (Events) thực tế được ứng dụng tự động ghi nhận và gửi về hệ thống tracking phục vụ cho việc tính toán Retention Metric.
+                    </p>
+                    <div class="event-log-container" id="telemetry-console">
+                        <div class="event-log-entry" style="color: #666;">-- Console initialized. Click buttons on phone simulators to generate events --</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 06: BEFORE/AFTER COMPARISON -->
+            <section id="slide-6" class="slide">
+                <span class="slide-tag">06 — METRIC AUDIT</span>
+                <h2 class="slide-title">Onboarding Flow Audit (Before / After)</h2>
+                
+                <div class="card">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Tiêu chí so sánh</th>
+                                    <th style="width: 25%;">Trước tối ưu (Day 18)</th>
+                                    <th style="width: 25%;">Sau tối ưu (Day 20)</th>
+                                    <th style="width: 25%;">Lý do & Tác động HCAI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Số bước tới Core Action</strong></td>
+                                    <td>5 bước</td>
+                                    <td style="color: var(--success); font-weight: 700;">3 bước</td>
+                                    <td>Loại bỏ các bước trung gian gây nản lòng và tăng tỷ lệ hoàn tất phễu.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Số trường nhập liệu</strong></td>
+                                    <td>5 trường</td>
+                                    <td style="color: var(--success); font-weight: 700;">2 trường</td>
+                                    <td>Tránh quá tải nhận thức. Người dùng chỉ điền điểm đến và số ngày.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cấp quyền hệ thống</strong></td>
+                                    <td>2 permissions (GPS & Calendar) ngay lúc đầu</td>
+                                    <td style="color: var(--success); font-weight: 700;">0 permissions lúc đầu (Contextual sau)</td>
+                                    <td>Trì hoãn cấp quyền giúp cải thiện 40% tỷ lệ chuyển đổi Onboarding, xin quyền khi user chủ động click.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Time to First Core Action</strong></td>
+                                    <td>~90 giây</td>
+                                    <td style="color: var(--success); font-weight: 700;">~20 giây</td>
+                                    <td>Tối giản hóa biểu mẫu giúp tương tác nhanh gấp 4.5 lần.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Time to Value (Aha Moment)</strong></td>
+                                    <td>~100 giây</td>
+                                    <td style="color: var(--success); font-weight: 700;">~25 giây</td>
+                                    <td>Đưa người dùng đến thẳng danh sách hành lý nháp thay vì bắt cấu hình sâu.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Điểm Drop-off chính</strong></td>
+                                    <td>Màn hình xin quyền riêng tư (GPS/Calendar)</td>
+                                    <td style="color: var(--success); font-weight: 700;">Màn hình nhập thông tin (Điểm đến)</td>
+                                    <td>Giảm tối đa nguy cơ từ chối cài đặt app do lo ngại quyền riêng tư.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Evidence of Value</strong></td>
+                                    <td>Checklist hoàn chỉnh chỉ sau khi hoàn tất load</td>
+                                    <td style="color: var(--success); font-weight: 700;">Checklist nháp hiển thị tức thì, cập nhật real-time</td>
+                                    <td>Cho thấy khả năng của AI ngay từ giây đầu tiên.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Luồng khôi phục lỗi (Recovery)</strong></td>
+                                    <td>Quá cân bay & Thời tiết Fansipan thay đổi</td>
+                                    <td style="color: var(--success); font-weight: 700;">Giữ nguyên & Làm mượt nút 1 chạm</td>
+                                    <td>Bảo toàn các kịch bản khôi phục lỗi xuất sắc của Ngày 18.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 07: MEASUREMENT LADDER -->
+            <section id="slide-7" class="slide">
+                <span class="slide-tag">07 — LADDER</span>
+                <h2 class="slide-title">Measurement Ladder</h2>
+                
+                <div class="card">
+                    <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px; text-align: center;">
+                        Thang đo lường (Measurement Ladder) sắp xếp từ đầu phễu (Traffic) đến giá trị dài hạn (Revenue).
+                    </p>
+                    
+                    <div class="ladder-container">
+                        <div class="ladder-step">
+                            <span class="ladder-step-num">06</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title">Revenue (Doanh thu)</span>
+                                <span class="ladder-step-desc">Doanh thu hoa hồng giới thiệu dịch vụ thuê đồ ấm, mua trang bị du lịch ngoài app.</span>
+                            </div>
+                        </div>
+                        <div class="ladder-arrow">↑</div>
+                        
+                        <div class="ladder-step" style="border-color: rgba(0, 229, 255, 0.4); background: rgba(0, 229, 255, 0.02);">
+                            <span class="ladder-step-num">05</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title" style="color: var(--primary);">Retention (Duy trì)</span>
+                                <span class="ladder-step-desc">Monthly Cohort Retention (Tỷ lệ người dùng tạo checklist tháng thứ N quay lại sử dụng ở tháng N+1).</span>
+                            </div>
+                        </div>
+                        <div class="ladder-arrow">↑</div>
+                        
+                        <div class="ladder-step" style="border-color: rgba(0, 229, 255, 0.4); background: rgba(0, 229, 255, 0.02);">
+                            <span class="ladder-step-num">04</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title" style="color: var(--primary);">Core Action (Hành động cốt lõi)</span>
+                                <span class="ladder-step-desc">Bấm nút "Xác nhận checklist cuối cùng" (đáp ứng đúng nhu cầu đóng đồ).</span>
+                            </div>
+                        </div>
+                        <div class="ladder-arrow">↑</div>
+                        
+                        <div class="ladder-step">
+                            <span class="ladder-step-num">03</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title">Activation (Kích hoạt)</span>
+                                <span class="ladder-step-desc">Người dùng hoàn thành Onboarding tối giản và nhìn thấy Checklist Nháp (Aha Moment).</span>
+                            </div>
+                        </div>
+                        <div class="ladder-arrow">↑</div>
+                        
+                        <div class="ladder-step">
+                            <span class="ladder-step-num">02</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title">Visitor (Khách truy cập)</span>
+                                <span class="ladder-step-desc">Người dùng mới tải ứng dụng hoặc truy cập vào trang giới thiệu tính năng gợi ý hành trang.</span>
+                            </div>
+                        </div>
+                        <div class="ladder-arrow">↑</div>
+                        
+                        <div class="ladder-step">
+                            <span class="ladder-step-num">01</span>
+                            <div class="ladder-step-content">
+                                <span class="ladder-step-title">Marketing / Traffic (Lưu lượng truy cập)</span>
+                                <span class="ladder-step-desc">Quảng bá thông qua các hội nhóm du lịch tự túc, các hội nhóm đi phượt và trekking.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 08: NORTH STAR & INPUT METRICS -->
+            <section id="slide-8" class="slide">
+                <span class="slide-tag">08 — NORTH STAR</span>
+                <h2 class="slide-title">North Star Metric & Business Trade-offs</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: var(--primary); margin-bottom: 8px;">North Star Metric (Chỉ số Sao Bắc Đẩu)</h3>
+                    <p style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px;">Tổng số checklist hành lý được hoàn tất (Finalized Checklists) mỗi tháng.</p>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                        Chỉ số này đại diện cho sự cộng hưởng hoàn hảo giữa **Giá trị người dùng** (chuẩn bị đồ đạc nhanh gọn, thành công) và **Mục tiêu sản phẩm** (thu hút và giữ chân khách hàng lâu dài trước các chuyến đi).
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 12px;">Input Metrics (Chỉ số đầu vào)</h3>
+                    <ul style="font-size: 13px; list-style: none; display: flex; flex-direction: column; gap: 10px;">
+                        <li>🚀 <strong>Activation Rate (Tỷ lệ kích hoạt):</strong> % người dùng hoàn tất onboarding tối giản và nhận được checklist nháp.</li>
+                        <li>🎯 <strong>Checklist Engagement:</strong> Số lượng vật phẩm trung bình được tương tác (Thêm/xóa/sửa/đánh dấu) trên mỗi checklist.</li>
+                        <li>🛡️ <strong>Recovery Feature CTR:</strong> Tỷ lệ click vào nút "Tối ưu hóa hành lý" hoặc "Cập nhật thời tiết" khi có cảnh báo lỗi HCAI.</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: var(--danger); margin-bottom: 8px;">Đánh giá Trade-off (Đánh đổi thương mại)</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                        **Trade-off:** Việc tích hợp quảng cáo liên kết (Affiliate links) thuê lều trại hoặc mua sạc dự phòng giúp tăng **Doanh thu đối tác (Revenue)**. Tuy nhiên, nếu hiển thị quá dày, che lấp checklist chính sẽ tăng **Friction (Rào cản)**, làm giảm mức độ hài lòng của người dùng $\rightarrow$ trực tiếp kéo tụt **Checklist Engagement Rate** và làm giảm sút **Monthly Cohort Retention** trong dài hạn.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 09: NATURE VS NURTURE -->
+            <section id="slide-9" class="slide">
+                <span class="slide-tag">09 — ENGAGEMENT</span>
+                <h2 class="slide-title">Nature vs Nurture Balance</h2>
+                
+                <div class="card">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">🍂 Nature (Nhịp độ nhu cầu tự nhiên)</th>
+                                    <th style="width: 50%;">🌱 Nurture (Hoạt động nuôi dưỡng chủ động)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p style="font-size: 13.5px; line-height: 1.5; color: var(--text-main);">
+                                            Nhu cầu chuẩn bị hành lý của Minh Anh chỉ xuất hiện tự nhiên từ **3 đến 7 ngày trước mỗi chuyến đi**.
+                                        </p>
+                                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic;">
+                                            Tần suất xuất hiện tự nhiên: Hàng tháng (Monthly/Bi-weekly).
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <ul style="font-size: 13px; display: flex; flex-direction: column; gap: 6px; padding-left: 10px;">
+                                            <li>Gửi **Thông báo đẩy (Push Notification)** cập nhật thời tiết tại điểm đến trước ngày đi 3 ngày.</li>
+                                            <li>Gửi email gợi ý check hành lý khi phát hiện vé tàu/máy bay đồng bộ trong lịch trình (nếu được đồng ý).</li>
+                                            <li>Tần suất: Tối đa **2 thông báo/chuyến đi**.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="background: rgba(255, 234, 0, 0.02);">
+                                        <p style="font-size: 13px; color: var(--warning); font-weight: 600;">
+                                            ⚠️ Nguyên lý HCAI: Nurture phải tôn trọng và bám sát Nature. Tuyệt đối không giả định người dùng cần đóng hành lý hàng ngày để gửi spam thông báo, điều này sẽ tạo ra sự quấy rầy và dẫn đến việc gỡ ứng dụng nhanh chóng.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: HOOK LOOP MODEL -->
+            <section id="slide-10" class="slide">
+                <span class="slide-tag">10 — HOOK MODEL</span>
+                <h2 class="slide-title">Hook Model Application</h2>
+                
+                <div class="card">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Thành phần</th>
+                                    <th style="width: 70%;">Phân tích chi tiết thiết kế</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Why Habit?</strong></td>
+                                    <td>Biến ứng dụng thành công cụ mặc định xuất hiện trong tâm trí du khách trước mỗi chuyến đi, loại bỏ Excel hay ghi chép thủ công.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intended Behavior</strong></td>
+                                    <td>Mở ứng dụng, kiểm tra các món đồ trên checklist thông minh gợi ý và xác nhận đóng gói.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Internal Trigger</strong></td>
+                                    <td>Cảm xúc lo lắng trước chuyến đi: *"Thời tiết ở đó thế nào, mang áo này có lạnh không?", "Liệu mình có quên thứ gì quan trọng không?"*.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>External Trigger</strong></td>
+                                    <td>Thông báo đẩy: *"Đà Lạt dự báo có mưa lớn vào cuối tuần này. Cập nhật ngay áo mưa và túi chống nước cho hành lý của bạn!"*.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Action</strong></td>
+                                    <td>Click mở thông báo, tick chọn các món đồ trên checklist nháp đã được chuẩn bị sẵn chỉ trong 1 chạm.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Variable Reward</strong></td>
+                                    <td>
+                                        * **The Hunt:** Tìm thấy các trang bị leo núi/trekking chuyên dụng phù hợp bất ngờ (như vớ chống vắt).<br>
+                                        * **The Self:** Nhìn thấy thanh đo cân nặng chuyển màu xanh lá an toàn, đạt trạng thái yên tâm và kiểm soát chuyến đi hoàn hảo.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Investment</strong></td>
+                                    <td>Người dùng lưu thói quen cá nhân (ví dụ: *"Tôi đi xe Jeep, bỏ giày leo núi"* và đồng ý lưu lâu dài). AI học thói quen này để tùy biến cho các lần sau.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Hook Loop Visual Representation -->
+                <div class="card">
+                    <h3 class="card-title" style="text-align: center; margin-bottom: -10px;">Mô hình vòng lặp hành vi (Hook Loop)</h3>
+                    <div class="hook-visual-box">
+                        <div class="hook-center">PACKING<br>HOOK</div>
+                        <div class="hook-quadrant q1">
+                            <span class="hook-quadrant-title">1. Trigger</span>
+                            <span class="hook-quadrant-desc">Lo lắng quên đồ (Internal)<br>Thời tiết đổi (External)</span>
+                        </div>
+                        <div class="hook-quadrant q2">
+                            <span class="hook-quadrant-title">2. Action</span>
+                            <span class="hook-quadrant-desc">Nhấn thông báo &<br>Tick checklist nháp</span>
+                        </div>
+                        <div class="hook-quadrant q3">
+                            <span class="hook-quadrant-title">3. Reward</span>
+                            <span class="hook-quadrant-desc">Cân nặng an toàn (Self)<br>Khám phá đồ tối ưu (Hunt)</span>
+                        </div>
+                        <div class="hook-quadrant q4">
+                            <span class="hook-quadrant-title">4. Investment</span>
+                            <span class="hook-quadrant-desc">Lưu thói quen cá nhân<br>& Cấu hình bay</span>
+                        </div>
+                        
+                        <!-- Inline SVGs for circular arrows -->
+                        <svg class="hook-arrow-svg" viewBox="0 0 1000 300">
+                            <!-- Arrow Q1 -> Q2 -->
+                            <path d="M 330 70 Q 500 20 670 70" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Arrow Q2 -> Q3 -->
+                            <path d="M 720 120 L 720 180" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Arrow Q3 -> Q4 -->
+                            <path d="M 670 230 Q 500 280 330 230" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Arrow Q4 -> Q1 -->
+                            <path d="M 280 180 L 280 120" fill="none" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <defs>
+                                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(0, 229, 255, 0.8)"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: METRIC TRACKING REQUIREMENT -->
+            <section id="slide-11" class="slide">
+                <span class="slide-tag">11 — TRACKING</span>
+                <h2 class="slide-title">Metric Tracking Requirements</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 12px;">Sơ đồ gắn sự kiện (Events Mapping on Onboarding Flow)</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                        Các điểm chạm cốt lõi trên luồng hành trình được đánh dấu bằng các tag sự kiện cụ thể:
+                    </p>
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; font-family: monospace; font-size: 12px; line-height: 1.8;">
+                        <div>Onboarding khởi động 🚀</div>
+                        <div style="color: var(--warning); padding-left: 20px;">➔ [Event: <strong style="color: #fff;">onboarding_started</strong>]</div>
+                        
+                        <div style="margin-top: 10px;">Nhập Điểm đến & Số ngày</div>
+                        
+                        <div style="margin-top: 10px;">Hiển thị Checklist Nháp (Aha Moment) ✨</div>
+                        <div style="color: var(--warning); padding-left: 20px;">➔ [Event: <strong style="color: #fff;">draft_checklist_created</strong>]</div>
+                        
+                        <div style="margin-top: 10px;">Người dùng tick/untick kiểm tra đồ dùng</div>
+                        <div style="color: var(--warning); padding-left: 20px;">➔ [Event: <strong style="color: #fff;">item_toggled</strong> (Properties: <span style="color: var(--primary);">item_name</span>, <span style="color: var(--primary);">status</span>)]</div>
+                        
+                        <div style="margin-top: 10px;">Người dùng tương tác nút khôi phục lỗi (Cảnh báo quá cân / Đổi thời tiết) 🛠️</div>
+                        <div style="color: var(--warning); padding-left: 20px;">➔ [Event: <strong style="color: #fff;">recovery_clicked</strong> (Properties: <span style="color: var(--primary);">recovery_type</span>)]</div>
+                        
+                        <div style="margin-top: 10px;">Người dùng bấm xác nhận checklist (Core Action) 🎉</div>
+                        <div style="color: var(--warning); padding-left: 20px;">➔ [Event: <strong style="color: #fff;">checklist_finalized</strong>]</div>
                     </div>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="demo-step">
-                    <div class="demo-time">2:00 - 3:30 (1.5 Phút)</div>
-                    <div class="demo-title">Demo Luồng chính & Mức tự chủ AI</div>
-                    <div class="demo-desc">
-                        Click mở <strong>mainpath.html</strong>. Trình diễn AI hỏi thêm về bối cảnh (Ask), tự điền đồ (Act) và bấm icon ⓘ để xem lớp thông tin giải thích (Explainability).
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 12px;">Tiêu chí Nghiệm thu Tracking (Tracking Acceptance Criteria)</h3>
+                    <ul style="font-size: 13px; display: flex; flex-direction: column; gap: 10px; color: var(--text-main);">
+                        <li>✅ <strong>Chống ghi trùng:</strong> Sự kiện `checklist_finalized` chỉ được kích hoạt duy nhất một lần khi bấm nút. Tải lại trang (refresh) không được tạo thêm event trùng lặp.</li>
+                        <li>✅ <strong>Định dạng nhất quán:</strong> Mọi event phải lưu trữ `timestamp` theo định dạng chuẩn UTC ISO 8601 và gán kèm định danh `user_id` / `anonymous_id`.</li>
+                        <li>✅ <strong>Khử trùng tự động:</strong> Tự động lọc bỏ các tương tác nhấp đúp (Double-click) trên các nút hành động khôi phục lỗi.</li>
+                        <li>✅ <strong>Bảo mật quyền riêng tư:</strong> Không thu thập tọa độ định vị GPS chính xác của người dùng trong dữ liệu tracking; chỉ ghi nhận tên thành phố/địa danh đích của chuyến đi.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: DEMO PATH -->
+            <section id="slide-12" class="slide">
+                <span class="slide-tag">12 — PRESENTATION</span>
+                <h2 class="slide-title">Presentation Demo Path</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">Phân bổ thời gian thuyết trình (8 phút/nhóm)</h3>
+                    
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Thời lượng</th>
+                                    <th style="width: 40%;">Nội dung trình bày</th>
+                                    <th style="width: 35%;">Slide tương ứng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>0:00 - 1:00 (1 phút)</strong></td>
+                                    <td>Trình bày Use Case, Persona và vấn đề cốt lõi của hành trang du lịch.</td>
+                                    <td>Slide 01: Customer Retention Canvas</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1:00 - 1:50 (50 giây)</strong></td>
+                                    <td>Định nghĩa Core Action, Active User và tần suất tự nhiên của vấn đề.</td>
+                                    <td>Slide 02 & 03: Core Action & Active User</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1:50 - 2:40 (50 giây)</strong></td>
+                                    <td>Lý do chọn Retention Metric theo nhịp hàng tháng (Monthly) thay vì hàng ngày.</td>
+                                    <td>Slide 03: Retention Metric</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2:40 - 4:20 (1.4 phút)</strong></td>
+                                    <td>Trình diễn mô phỏng so sánh Luồng cũ (nhiều ma sát) và Luồng mới tối ưu.</td>
+                                    <td>Slide 05: Interactive Simulator (Live Demo)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4:20 - 5:15 (55 giây)</strong></td>
+                                    <td>Báo cáo kết quả so sánh định lượng Before/After và giữ lại luồng khôi phục.</td>
+                                    <td>Slide 06: Before/After Comparison</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5:15 - 6:20 (1.1 phút)</strong></td>
+                                    <td>Trình bày Measurement Ladder và cách North Star Metric dẫn dắt sản phẩm.</td>
+                                    <td>Slide 07 & 08: North Star & Measurement Ladder</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>6:20 - 7:15 (55 giây)</strong></td>
+                                    <td>Sự cân bằng Nature vs Nurture và mô hình Hook Loop giúp tạo thói quen tốt.</td>
+                                    <td>Slide 09 & 10: Hook Model & Nurture Strategy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>7:15 - 8:00 (45 giây)</strong></td>
+                                    <td>Giải thích các yêu cầu tracking sự kiện để chứng minh dữ liệu và nghiệm thu.</td>
+                                    <td>Slide 11: Metric Tracking Requirement</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <!-- Step 4 -->
-                <div class="demo-step">
-                    <div class="demo-time">3:30 - 5:00 (1.5 Phút)</div>
-                    <div class="demo-title">Khôi phục lỗi & Tổng kết Rationale</div>
-                    <div class="demo-desc">
-                        Mở <strong>recovery.html</strong> để demo khôi phục do thời tiết đổi hoặc quá tải cân nặng xách tay. Kết luận về ma trận feedback 2x2 để hoàn thiện bài thuyết trình.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- BOTTOM: Design Rationale Cards -->
-        <div style="margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 25px;">
-            <h2>💡 Design Rationale (Giải trình cốt lõi)</h2>
-            <div class="rationale-grid">
-                <div class="rationale-card">
-                    <div class="rat-q">AI Đang Giả Định Điều Gì?</div>
-                    <div class="rat-a">Giả định người dùng cần chuẩn bị đầy đủ đồ dùng theo thời tiết thực tế và hoạt động đã khai báo mà không nhớ hết các vật dụng chuyên dụng.</div>
-                </div>
-                <div class="rationale-card">
-                    <div class="rat-q">Rủi Ro Lớn Nhất & Cách Khôi Phục?</div>
-                    <div class="rat-a">Thời tiết đột ngột đổi hoặc đề xuất đồ cấm bay. Khôi phục bằng cách đưa cảnh báo đỏ và cung cấp nút "Tối ưu hóa" 1 chạm.</div>
-                </div>
-                <div class="rationale-card">
-                    <div class="rat-q">Khi Nào AI Được Phép "Act"?</div>
-                    <div class="rat-a">AI tự động tạo bản nháp và phân nhóm đồ (Act) vì rủi ro thấp, người dùng cực kỳ dễ dàng xem lại, thay đổi hoặc hoàn tác.</div>
-                </div>
-                <div class="rationale-card">
-                    <div class="rat-q">Tại Sao Đề Xuất Mua Đồ Là "Don't Act"?</div>
-                    <div class="rat-a">Giao dịch mua sắm liên quan đến tiền bạc, rủi ro sai sót rất lớn. AI tuyệt đối không tự ý thanh toán mà chỉ đưa link bên ngoài cho người dùng xác nhận.</div>
-                </div>
-            </div>
-        </div>
+            </section>
+            
+        </main>
     </div>
+
+    <!-- JavaScript Presentation & Simulator Logic -->
+    <script>
+        // Slide switching logic
+        function switchSlide(index) {
+            // Hide all slides
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show selected slide
+            const targetSlide = document.getElementById(`slide-${index}`);
+            if (targetSlide) {
+                targetSlide.classList.add('active');
+            }
+            
+            // Update active state in sidebar menu
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            if (navItems[index]) {
+                navItems[index].classList.add('active');
+            }
+        }
+        
+        // Console telemetry logging helper
+        function logTelemetry(eventName, properties = {}) {
+            const consoleElem = document.getElementById('telemetry-console');
+            if (consoleElem) {
+                const timestamp = new Date().toISOString();
+                const logEntry = document.createElement('div');
+                logEntry.className = 'event-log-entry';
+                
+                const propsString = Object.keys(properties).length > 0 
+                    ? `, "properties": ${JSON.stringify(properties)}`
+                    : '';
+                
+                logEntry.innerHTML = `
+                    <span class="event-log-time">[${timestamp}]</span> 
+                    <span class="event-log-name">${eventName}</span> dispatched 
+                    ${propsString}
+                `;
+                consoleElem.appendChild(logEntry);
+                consoleElem.scrollTop = consoleElem.scrollHeight;
+            }
+        }
+
+        // ==========================================
+        // BEFORE ONBOARDING SIMULATOR LOGIC
+        // ==========================================
+        let beforeStep = 1;
+        function nextBefore(step) {
+            // Hide current screen
+            document.getElementById(`before-screen-${beforeStep}`).style.display = 'none';
+            document.getElementById(`before-dot-${beforeStep}`).classList.remove('active');
+            
+            beforeStep = step;
+            
+            // Show new screen
+            document.getElementById(`before-screen-${beforeStep}`).style.display = 'flex';
+            document.getElementById(`before-dot-${beforeStep}`).classList.add('active');
+            
+            // Dispatch telemetry on key screens
+            if (step === 1) {
+                logTelemetry('onboarding_started', { flow: 'before_day18' });
+            } else if (step === 4) {
+                // Simulate loading then auto progress to checklist after 1.5s
+                setTimeout(() => {
+                    nextBefore(5);
+                }, 1500);
+            } else if (step === 5) {
+                const dest = document.getElementById('before-dest').value || 'Đà Lạt';
+                logTelemetry('checklist_created', { 
+                    flow: 'before_day18',
+                    destination: dest,
+                    items_count: 5 
+                });
+            }
+        }
+        
+        function finalizeBefore() {
+            logTelemetry('checklist_finalized', { flow: 'before_day18', items_checked: 5 });
+            nextBefore(6);
+        }
+        
+        function resetBefore() {
+            document.getElementById('before-dest').value = '';
+            document.getElementById('before-gps-perm').checked = false;
+            document.getElementById('before-cal-perm').checked = false;
+            nextBefore(1);
+        }
+        
+        // Initial setup
+        logTelemetry('onboarding_started', { flow: 'before_day18' });
+
+        // ==========================================
+        // AFTER ONBOARDING SIMULATOR LOGIC
+        // ==========================================
+        let afterStep = 1;
+        let isGPSGranted = false;
+        
+        function nextAfter(step) {
+            document.getElementById(`after-screen-${afterStep}`).style.display = 'none';
+            document.getElementById(`after-dot-${afterStep}`).classList.remove('active');
+            
+            afterStep = step;
+            
+            document.getElementById(`after-screen-${afterStep}`).style.display = 'flex';
+            document.getElementById(`after-dot-${afterStep}`).classList.add('active');
+            
+            if (step === 1) {
+                logTelemetry('onboarding_started', { flow: 'after_day20' });
+            } else if (step === 3) {
+                // Aha Moment achieved! Show draft checklist immediately
+                const dest = document.getElementById('after-dest').value || 'Đà Lạt';
+                logTelemetry('draft_checklist_created', { 
+                    flow: 'after_day20',
+                    destination: dest,
+                    items_count: 3 
+                });
+            }
+        }
+        
+        function triggerGPSPermission() {
+            logTelemetry('permission_prompt_triggered', { permission: 'gps', context: 'weather_sync' });
+            nextAfter(4); // Show contextual permission screen
+        }
+        
+        function allowGPSPermission() {
+            isGPSGranted = true;
+            logTelemetry('permission_granted', { permission: 'gps' });
+            
+            // Go back to checklist and update it with weather items
+            nextAfter(3);
+            
+            // Show synced banner, hide old banner
+            document.getElementById('weather-sync-banner').style.display = 'none';
+            
+            const syncedBanner = document.getElementById('weather-synced-banner');
+            syncedBanner.style.display = 'flex';
+            
+            // Append weather items dynamically (Aha moment extension)
+            const listContainer = document.getElementById('after-checklist-items');
+            listContainer.innerHTML += `
+                <div class="draft-item" style="border-color: var(--primary);"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span style="color: var(--primary);">🧥 Áo phao giữ nhiệt</span></div><span class="draft-meta">Thời tiết 15°C</span></div>
+                <div class="draft-item" style="border-color: var(--primary);"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span style="color: var(--primary);">☔ Áo mưa bộ cao cấp</span></div><span class="draft-meta">Mưa lớn 80%</span></div>
+            `;
+            
+            logTelemetry('checklist_updated_with_weather', { destination: 'Đà Lạt', added_items: ['Áo phao giữ nhiệt', 'Áo mưa bộ cao cấp'] });
+        }
+        
+        function denyGPSPermission() {
+            isGPSGranted = false;
+            logTelemetry('permission_denied', { permission: 'gps' });
+            
+            // Go back to checklist
+            nextAfter(3);
+            
+            // Keep the warning banner
+            alert("Bạn đã từ chối cấp quyền GPS. AI sẽ không thể đồng bộ thời tiết Đà Lạt thực tế để đề xuất đồ ấm!");
+        }
+        
+        function finalizeAfter() {
+            const itemsCount = isGPSGranted ? 5 : 3;
+            logTelemetry('checklist_finalized', { flow: 'after_day20', items_count_confirmed: itemsCount });
+            nextAfter(5);
+        }
+        
+        function resetAfter() {
+            document.getElementById('after-dest').value = '';
+            document.getElementById('after-days').value = '3';
+            isGPSGranted = false;
+            
+            // Reset banners
+            document.getElementById('weather-sync-banner').style.display = 'flex';
+            document.getElementById('weather-synced-banner').style.display = 'none';
+            
+            // Reset list items to original 3
+            document.getElementById('after-checklist-items').innerHTML = `
+                <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Áo thun mỏng</span></div></div>
+                <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Quần dài co giãn</span></div></div>
+                <div class="draft-item"><div class="draft-item-title"><input type="checkbox" onchange="toggleItem(this)"> <span>Sạc dự phòng</span></div></div>
+            `;
+            nextAfter(1);
+        }
+
+        // Checklist items click interaction
+        function toggleItem(checkbox) {
+            const labelText = checkbox.parentNode.querySelector('span').textContent;
+            const status = checkbox.checked ? 'checked' : 'unchecked';
+            
+            // Toggle style class
+            if (checkbox.checked) {
+                checkbox.parentNode.parentNode.classList.add('checked');
+            } else {
+                checkbox.parentNode.parentNode.classList.remove('checked');
+            }
+            
+            logTelemetry('item_toggled', { item_name: labelText, action: status });
+        }
+    </script>
 
 </body>
 </html>
