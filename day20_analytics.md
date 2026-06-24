@@ -105,3 +105,54 @@ Việc thu thập dữ liệu (Tracking) được tinh gọn để chỉ tập t
 1. Event `checklist_finalized` chỉ được bắn đi một lần duy nhất cho mỗi checklist khi trạng thái chuyển sang hoàn tất. Các thao tác Refresh lại màn hình sau đó không được phép bắn trùng lặp (Duplicate Data).
 2. Mọi event phải đính kèm `user_id` định danh duy nhất và `timestamp` tuân thủ chuẩn ISO 8601 (UTC).
 3. Tuyệt đối không track các thông tin định danh cá nhân nhạy cảm (PII) trong phần Properties nếu không liên quan trực tiếp đến việc tính Metric.
+4. Payload của event cần được validate (đối chiếu) với cấu trúc schema đã định nghĩa trước khi gửi lên hệ thống Data Warehouse để đảm bảo tính toàn vẹn dữ liệu.
+
+---
+
+## 7. Phụ lục: Checklist trước khi nộp
+
+### Use case và natural behavior
+- [x] Chỉ tập trung vào một use case chính.
+- [x] Có The Problem, Persona, Anti-persona, Why và Alternative.
+- [x] Frequency được suy ra từ hành vi thật và alternative.
+
+### Core action và metric
+- [x] Core action cho thấy user nhận được value.
+- [x] Active user có định nghĩa và ngưỡng rõ.
+- [x] Retention metric phù hợp natural frequency.
+- [x] Không copy DAU, WAU, MAU hoặc D7 từ sản phẩm khác.
+
+### Onboarding &rarr; First Core Action
+- [x] Có current-state journey.
+- [x] Mỗi bước được audit theo Keep, Remove, Delay hoặc Simplify.
+- [x] Có redesigned journey dẫn tới first core action.
+- [x] Có activation, Time to First Core Action, TTV và aha moment.
+- [x] Đã chỉ ra bước thừa hoặc friction trước core action.
+- [x] Có Before/After comparison.
+- [x] Giữ hoặc cải thiện recovery flow Ngày 18.
+
+### Measurement
+- [x] Có Measurement Ladder.
+- [x] Có một North Star Metric và tối đa ba Input Metrics.
+- [x] Phân biệt leading và lagging indicator.
+- [x] Có một trade-off cần theo dõi.
+
+### Nature, Nurture và Hook
+- [x] Phân biệt natural frequency với nurture.
+- [x] Nurture không quá dày hoặc quá thưa.
+- [x] Hook Review có Trigger, Action, Variable Reward và Investment.
+- [x] Đã xác định rào cản làm action khó thực hiện.
+- [x] Đã kiểm tra habit có thực sự có lợi cho user.
+- [x] Không ép habit nếu frequency và utility không phù hợp.
+
+### Tracking
+- [x] Metric có định nghĩa, công thức, window và segment.
+- [x] Event map trực tiếp tới metric.
+- [x] Event được gắn lên onboarding/core action flow.
+- [x] Có ít nhất bốn tiêu chí nghiệm thu.
+
+### Submission
+- [ ] Chỉ nộp một liên kết đã cấp quyền xem.
+- [x] Phân biệt được phần Ngày 18 và phần bổ sung Day 20.
+- [x] Có demo path.
+- [ ] Demo không quá 8 phút.
